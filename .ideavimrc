@@ -1,0 +1,4 @@
+set relativenumber
+set number
+
+Plug 'tpope/vim-surround'
