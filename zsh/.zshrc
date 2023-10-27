@@ -22,9 +22,12 @@ source_if_exists "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud
 export ZSH="$HOME/.oh-my-zsh"
 
 export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+[[ ":$PATH:" =~ ":$PYENV_ROOT/bin:" ]] || PATH="$PYENV_ROOT/bin:$PATH"
 # initialize pyenv each time we open a new terminal
-eval "$(pyenv init -)"
+if command -v pyenv &> /dev/null
+then
+    eval "$(pyenv init -)"
+fi
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -135,12 +138,11 @@ export NVM_DIR="$HOME/.nvm"
 
 export JAVA_HOME="$(/usr/libexec/java_home -v 17)"
 
-# Created by `userpath` on 2023-04-05 00:51:59
-export PATH="$PATH:$HOME/.local/bin:/Applications/IntelliJ IDEA.app/Contents/MacOS"
+[[ ":$PATH:" =~ ":$HOME/.local/bin:/Applications/IntelliJ IDEA.app/Contents/MacOS:" ]] || PATH="$HOME/.local/bin:/Applications/IntelliJ IDEA.app/Contents/MacOS:$PATH"
+[[ ":$PATH:" =~ ":$HOME/.jenv/bin:" ]] || PATH="$HOME/.jenv/bin:$PATH"
 
 if command -v jenv &> /dev/null
 then
-    export PATH="$HOME/.jenv/bin:$PATH"
     eval "$(jenv init -)"
 fi
 
