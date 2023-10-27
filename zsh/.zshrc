@@ -141,14 +141,17 @@ export JAVA_HOME="$(/usr/libexec/java_home -v 17)"
 [[ ":$PATH:" =~ ":$HOME/.local/bin:/Applications/IntelliJ IDEA.app/Contents/MacOS:" ]] || PATH="$HOME/.local/bin:/Applications/IntelliJ IDEA.app/Contents/MacOS:$PATH"
 [[ ":$PATH:" =~ ":$HOME/.jenv/bin:" ]] || PATH="$HOME/.jenv/bin:$PATH"
 
+[[ ":$PATH:" =~ ":$HOME/bin:" ]] || PATH="$HOME/bin:$PATH"
+
 if command -v jenv &> /dev/null
 then
     eval "$(jenv init -)"
 fi
 
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh

@@ -96,14 +96,6 @@ link_file () {
   fi
 }
 
-
-prop () {
-   prop_key=$1
-   prop_file=$2
-   prop_value=$(grep "$prop_key" < "$prop_file" | cut -d '=' -f 2)
-   echo "$prop_value"
-}
-
 install_dotfiles () {
   info 'Installing dotfiles'
 
