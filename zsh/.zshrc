@@ -15,8 +15,8 @@ fi
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
-source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+source_if_exists "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+source_if_exists "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -126,7 +126,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source /Users/jonathanmorris/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source_if_exists $HOME/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 export NVM_DIR="$HOME/.nvm"
@@ -136,10 +136,13 @@ export NVM_DIR="$HOME/.nvm"
 export JAVA_HOME="$(/usr/libexec/java_home -v 17)"
 
 # Created by `userpath` on 2023-04-05 00:51:59
-export PATH="$PATH:/Users/jonathanmorris/.local/bin:/Applications/IntelliJ IDEA.app/Contents/MacOS"
+export PATH="$PATH:$HOME/.local/bin:/Applications/IntelliJ IDEA.app/Contents/MacOS"
 
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
+if command -v jenv &> /dev/null
+then
+    export PATH="$HOME/.jenv/bin:$PATH"
+    eval "$(jenv init -)"
+fi
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
