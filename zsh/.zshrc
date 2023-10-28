@@ -22,7 +22,7 @@ source_if_exists "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud
 export ZSH="$HOME/.oh-my-zsh"
 
 export PYENV_ROOT="$HOME/.pyenv"
-[[ ":$PATH:" =~ ":$PYENV_ROOT/bin:" ]] || PATH="$PYENV_ROOT/bin:$PATH"
+[[ ":$PATH:" =~ ":$PYENV_ROOT/bin:" ]] || export PATH="$PYENV_ROOT/bin:$PATH"
 # initialize pyenv each time we open a new terminal
 if command -v pyenv &> /dev/null
 then
@@ -138,10 +138,10 @@ export NVM_DIR="$HOME/.nvm"
 
 export JAVA_HOME="$(/usr/libexec/java_home -v 17)"
 
-[[ ":$PATH:" =~ ":$HOME/.local/bin:/Applications/IntelliJ IDEA.app/Contents/MacOS:" ]] || PATH="$HOME/.local/bin:/Applications/IntelliJ IDEA.app/Contents/MacOS:$PATH"
-[[ ":$PATH:" =~ ":$HOME/.jenv/bin:" ]] || PATH="$HOME/.jenv/bin:$PATH"
+[[ ":$PATH:" =~ ":$HOME/.local/bin:/Applications/IntelliJ IDEA.app/Contents/MacOS:" ]] || export PATH="$HOME/.local/bin:/Applications/IntelliJ IDEA.app/Contents/MacOS:$PATH"
+[[ ":$PATH:" =~ ":$HOME/.jenv/bin:" ]] || export PATH="$HOME/.jenv/bin:$PATH"
 
-[[ ":$PATH:" =~ ":$HOME/bin:" ]] || PATH="$HOME/bin:$PATH"
+[[ ":$PATH:" =~ ":$HOME/bin:" ]] || export PATH="$HOME/bin:$PATH"
 
 if command -v jenv &> /dev/null
 then
