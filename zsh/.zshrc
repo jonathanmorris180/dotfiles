@@ -111,12 +111,32 @@ source $ZSH/oh-my-zsh.sh
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+# Remote sessions - if someone connects to this machine (whatever machine hosts this file) via SSH then SSH_CONNECTION will be set automatically
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
+
+set -o vi
+function jk_to_escape {
+  local char
+  read -k1 char
+
+  # If the next character is 'k', treat the sequence as an escape to normal mode
+  if [[ "$char" == "k" ]]; then
+    zle vi-cmd-mode  # Switches to normal mode
+  else
+    LBUFFER+='j'
+    LBUFFER+="$char"
+  fi
+}
+
+# Create a zle widget 
+zle -N jk_to_escape
+autoload -Uz edit-command-line
+bindkey -M vicmd '^v' edit-command-line # use Neovim for editing the current line
+bindkey -M viins 'j' jk_to_escape
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
