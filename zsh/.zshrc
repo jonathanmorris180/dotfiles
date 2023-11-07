@@ -136,7 +136,7 @@ bindkey -M vicmd "^v" edit-command-line # use Neovim for editing the current lin
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-source_if_exists $HOME/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source_if_exists $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 export NVM_DIR="$HOME/.nvm"
