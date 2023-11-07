@@ -118,23 +118,9 @@ else
   export EDITOR='nvim'
 fi
 
-set -o vi
-function jk_to_escape {
-  local char
-  read -k1 char
-
-  # If the next character is "k", treat the sequence as an escape to normal mode
-  if [[ "$char" == "k" ]]; then
-    zle vi-cmd-mode  # Switches to normal mode
-  else
-    LBUFFER+="j"
-    LBUFFER+="$char"
-  fi
-}
-
-# Create a zle widget 
-zle -N jk_to_escape
-bindkey -M viins "j" jk_to_escape
+source_if_exists $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+ZVM_VI_VISUAL_ESCAPE_BINDKEY=q
 
 autoload -Uz edit-command-line
 bindkey -M vicmd "^v" edit-command-line # use Neovim for editing the current line
