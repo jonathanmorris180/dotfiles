@@ -97,7 +97,6 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git
-    # vi-mode
     zsh-autosuggestions
     web-search
 )
@@ -121,6 +120,7 @@ fi
 source_if_exists $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 ZVM_VI_VISUAL_ESCAPE_BINDKEY=q
+ZVM_CURSOR_STYLE_ENABLED=false
 
 autoload -Uz edit-command-line
 bindkey -M vicmd "^v" edit-command-line # use Neovim for editing the current line
@@ -136,8 +136,8 @@ bindkey -M vicmd "^v" edit-command-line # use Neovim for editing the current lin
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
 source_if_exists $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# source $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
