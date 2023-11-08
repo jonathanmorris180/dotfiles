@@ -146,14 +146,8 @@ export NVM_DIR="$HOME/.nvm"
 export JAVA_HOME="$(/usr/libexec/java_home -v 17)"
 
 [[ ":$PATH:" =~ ":$HOME/.local/bin:/Applications/IntelliJ IDEA.app/Contents/MacOS:" ]] || export PATH="$HOME/.local/bin:/Applications/IntelliJ IDEA.app/Contents/MacOS:$PATH"
-[[ ":$PATH:" =~ ":$HOME/.jenv/bin:" ]] || export PATH="$HOME/.jenv/bin:$PATH"
 
 [[ ":$PATH:" =~ ":$HOME/bin:" ]] || export PATH="$HOME/bin:$PATH"
-
-if command -v jenv &> /dev/null
-then
-    eval "$(jenv init -)"
-fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
