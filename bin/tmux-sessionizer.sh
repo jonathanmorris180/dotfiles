@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-dirs=("$HOME/Documents/vs-code" "$HOME/Documents/intellij" "$HOME/Documents/big_repos" "$HOME")
+dirs=("$HOME/Documents/vs-code" "$HOME/Documents/intellij" "$HOME/Documents/big_repos" "$HOME" "$HOME/.config")
 
 if [[ $# -eq 1 ]]; then
     selected=$1
