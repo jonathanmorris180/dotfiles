@@ -119,7 +119,6 @@ fi
 
 source_if_exists $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
-ZVM_VI_VISUAL_ESCAPE_BINDKEY=q
 ZVM_CURSOR_STYLE_ENABLED=false
 
 autoload -Uz edit-command-line
