@@ -8,9 +8,7 @@ source_if_exists $HOME/.env.sh
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+source_if_exists "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -101,7 +99,7 @@ plugins=(
     web-search
 )
 
-source $ZSH/oh-my-zsh.sh
+source_if_exists $ZSH/oh-my-zsh.sh
 
 # User configuration
 
@@ -148,6 +146,9 @@ export JAVA_HOME="$(/usr/libexec/java_home -v 17)"
 
 [[ ":$PATH:" =~ ":$HOME/bin:" ]] || export PATH="$HOME/bin:$PATH"
 
+# For older versions of Go (1.11 and earlier) that don't support modules
+[[ ":$PATH:" =~ ":$HOME/go/bin:" ]] || export PATH="$HOME/go/bin:$PATH"
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source_if_exists ~/.p10k.zsh
 
@@ -156,5 +157,5 @@ export JAVA_HOME="$(/usr/libexec/java_home -v 17)"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source_if_exists "$HOME/.sdkman/bin/sdkman-init.sh"
 
