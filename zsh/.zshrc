@@ -116,6 +116,15 @@ else
 fi
 
 source_if_exists $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+
+# see issue: https://github.com/jeffreytse/zsh-vi-mode/issues/4
+function after_init() {
+    # created with $(brew --prefix)/opt/fzf/install after installing fzf
+    source_if_exists ~/.fzf.zsh
+    source_if_exists $ZSH_CUSTOM/plugins/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh
+}
+zvm_after_init_commands+=(after_init)
+
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 ZVM_CURSOR_STYLE_ENABLED=false
 
@@ -151,9 +160,6 @@ export JAVA_HOME="$(/usr/libexec/java_home -v 17)"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source_if_exists ~/.p10k.zsh
-
-# created with $(brew --prefix)/opt/fzf/install after installing fzf
-[ -f ~/.fzf.zsh ] && source_if_exists ~/.fzf.zsh
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
