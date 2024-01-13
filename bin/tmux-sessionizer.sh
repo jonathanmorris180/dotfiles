@@ -1,6 +1,15 @@
 #!/usr/bin/env bash
 
-dirs=("$HOME/Documents/vs-code" "$HOME/Documents/intellij" "$HOME/Documents/big_repos" "$HOME/Documents/big_repos/dotfiles/main" "$HOME" "$HOME/.config" "$HOME/Documents/vs-code/dotfiles/main" "$HOME/Library/CloudStorage/GoogleDrive-jonathanmorris@spotify.com/My Drive/Tickets")
+dirs=(
+    "$HOME" 
+    "$HOME/.config" 
+    "$HOME/Documents/intellij" 
+    "$HOME/Documents/repos"
+    "$HOME/Documents/repos/dotfiles/main" 
+    "$HOME/Documents/vs-code" 
+    "$HOME/Documents/vs-code/dotfiles/main" 
+    "$HOME/Library/CloudStorage/GoogleDrive-jonathanmorris@spotify.com/My Drive/Tickets" 
+)
 
 if [[ $# -eq 1 ]]; then
     selected=$1
