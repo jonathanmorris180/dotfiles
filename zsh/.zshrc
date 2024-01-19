@@ -143,6 +143,40 @@ bindkey -M vicmd "^v" edit-command-line # use Neovim for editing the current lin
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Maybe pull git aliases into own file at some point if needed
+# Format: <commit-hash> <date-in-local-timezone>  <ref-names> <message> [<author>]
+# g=git
+
+# Useful aliases from oh-my-zsh
+# ga='git add'
+# gaa='git add --all'
+# gb='git branch'
+# gbD='git branch -D'
+# gba='git branch -a'
+# gbd='git branch -d'
+# gc='git commit -v'
+# gcb='git checkout -b'
+# gco='git checkout'
+# gd='git diff'
+# gf='git fetch'
+# gfa='git fetch --all --prune --jobs=10'
+# gl='git pull'
+# glods='git log --graph --pretty='\''%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset'\'' --date=short'
+# glol='git log --graph --pretty='\''%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset'\'
+# glola='git log --graph --pretty='\''%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset'\'' --all'
+# glols='git log --graph --pretty='\''%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset'\'' --stat'
+# glp='git log --pretty=format:"%C(yellow)%h %C(blue)%ad %C(red)%d %C(reset)%s %C(green)[%an]" --decorate --date=format-local:"%Y-%m-%d %H:%M:%S"'
+# gm='git merge'
+# gp='git push'
+# 'gpf!'='git push --force'
+# gpsup='git push --set-upstream origin $(git_current_branch)'
+# grhh='git reset --hard'
+
+alias glp='git log --pretty=format:"%C(yellow)%h %C(blue)%ad %C(red)%d %C(reset)%s %C(green)[%an]" --decorate --date=format-local:"%Y-%m-%d %H:%M:%S"'
+alias gs='git status'
+alias gca='git commit --amend --no-edit'
+alias gcm='git commit -m'
+
 source_if_exists $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export NVM_DIR="$HOME/.nvm"
