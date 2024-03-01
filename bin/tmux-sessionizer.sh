@@ -5,9 +5,9 @@ dirs=(
     "$HOME/.config" 
     "$HOME/Documents/intellij" 
     "$HOME/Documents/repos"
-    "$HOME/Documents/repos/dotfiles/main" 
+    "$HOME/Documents/repos/dotfiles" 
     "$HOME/Documents/vs-code" 
-    "$HOME/Documents/vs-code/dotfiles/main" 
+    "$HOME/Documents/vs-code/dotfiles" 
     "$HOME/Library/CloudStorage/GoogleDrive-jonathanmorris@spotify.com/My Drive/Tickets" 
 )
 
