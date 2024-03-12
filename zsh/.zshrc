@@ -10,6 +10,9 @@ source_if_exists $HOME/.env.sh
 # confirmations, etc.) must go above this block; everything else may go below.
 source_if_exists "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 
+# groovy
+[[ -d /opt/homebrew/opt/groovy ]] && export GROOVY_HOME=/opt/homebrew/opt/groovy/libexec
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
