@@ -26,7 +26,7 @@ shift + alt - t : yabai -m window --toggle float --grid 4:4:1:1:2:2
 
 # restart off yabai
 cmd - d : yabai --stop-service # disable
-cmd - a : yabai --start-service # activate
+cmd - e : yabai --start-service # enable
 
 
 # -- Modifying Window Size --
