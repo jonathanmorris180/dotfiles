@@ -127,6 +127,7 @@ zvm_after_init_commands+=(after_init)
 
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
 ZVM_CURSOR_STYLE_ENABLED=false
+ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
 
 autoload -Uz edit-command-line
 bindkey -M vicmd "^v" edit-command-line # use Neovim for editing the current line
