@@ -173,10 +173,21 @@ bindkey -M vicmd "^v" edit-command-line # use Neovim for editing the current lin
 # gpsup='git push --set-upstream origin $(git_current_branch)'
 # grhh='git reset --hard'
 
+function checkout_fzf() {
+  git branch | fzf | xargs git checkout
+}
+
+function merge_fzf() {
+  git branch | fzf | xargs git merge
+}
+
 alias glp='git log --pretty=format:"%C(yellow)%h %C(blue)%ad %C(red)%d %C(reset)%s %C(green)[%an]" --decorate --date=format-local:"%Y-%m-%d %H:%M:%S"'
 alias gs='git status'
 alias gca='git commit --amend --no-edit'
 alias gcm='git commit -m'
+alias gcof='checkout_fzf'
+alias gmf='merge_fzf'
+alias pwb='git rev-parse --abbrev-ref HEAD'
 
 source_if_exists $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
