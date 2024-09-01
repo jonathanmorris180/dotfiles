@@ -103,8 +103,14 @@ install_dotfiles () {
 
   find -H "$DOTFILES" -maxdepth 2 -name 'links.prop' -not -path '*.git*' | while read -r linkfile
   do
-    while read -r line
+    local skip=false
+    while read -r line && [ "$skip" == "false" ]
     do
+        if [ "$line" == "SKIP" ]; then
+            skip=true
+            info "Skipping because of SKIP indicator: $linkfile"
+            continue
+        fi
         local src dest dir
         src=$(eval echo "$line" | cut -d '=' -f 1) # eval to populate the variables
         dest=$(eval echo "$line" | cut -d '=' -f 2)
