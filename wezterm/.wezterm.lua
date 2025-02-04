@@ -15,8 +15,9 @@ config.window_padding = {
 	top = 5,
 	bottom = 5,
 }
--- config.term = "xterm-kitty" -- Needed for image.nvim to work (see here: https://www.youtube.com/watch?v=8m88Mh12yVw&ab_channel=linkarzu) but apparently not
-config.term = "tmux-256color" -- Seems to work fine with images now, and this allows the cursor to behave as expected in Neovim
+-- config.term = "xterm-kitty" -- Supposedly needed for image.nvim to work (see here: https://www.youtube.com/watch?v=8m88Mh12yVw&ab_channel=linkarzu) but apparently not
+-- config.term = "tmux-256color" -- Seems to work fine with images and allows the cursor to behave as expected in Neovim
+config.term = "wezterm" -- This also seems to work with images and allows nicer styled underlines (undercurl)
 
 -- To enable kitty graphics
 -- https://github.com/wez/wezterm/issues/986

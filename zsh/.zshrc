@@ -233,6 +233,30 @@ install_xterm_kitty_terminfo() {
 }
 install_xterm_kitty_terminfo
 
+install_wezterm_terminfo() {
+  # Attempt to get terminfo for xterm-kitty
+  if ! infocmp wezterm &>/dev/null; then
+    echo "wezterm terminfo not found. Installing..."
+    # Create a temp file
+    tempfile=$(mktemp)
+    # https://wezfurlong.org/wezterm/config/lua/config/term.html
+    if curl -o "$tempfile" https://raw.githubusercontent.com/wez/wezterm/main/termwiz/data/wezterm.terminfo; then
+      echo "Downloaded wezterm.terminfo successfully."
+      # Compile and install the terminfo entry for my current user
+      if tic -x -o ~/.terminfo "$tempfile"; then
+        echo "wezterm terminfo installed successfully."
+      else
+        echo "Failed to compile and install wezterm terminfo."
+      fi
+    else
+      echo "Failed to download wezterm.terminfo."
+    fi
+    # Remove the temporary file
+    rm "$tempfile"
+  fi
+}
+install_wezterm_terminfo
+
 # To support image.nvim
 export DYLD_FALLBACK_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_FALLBACK_LIBRARY_PATH"
 
