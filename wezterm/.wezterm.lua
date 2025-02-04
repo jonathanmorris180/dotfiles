@@ -15,8 +15,7 @@ config.window_padding = {
 	top = 5,
 	bottom = 5,
 }
-config.term = "tmux-256color" -- this has to be set for tmux's Ctrl-Space + [ to work
--- config.term = "xterm-kitty" -- might be needed for images to work, see https://www.youtube.com/watch?v=8m88Mh12yVw&t=121s
+config.term = "xterm-kitty" -- Needed for image.nvim to work
 
 -- To enable kitty graphics
 -- https://github.com/wez/wezterm/issues/986

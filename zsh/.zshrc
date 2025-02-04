@@ -207,6 +207,35 @@ export JAVA_HOME="$(/usr/libexec/java_home -v 17)"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source_if_exists ~/.p10k.zsh
 
+# pulled from https://github.com/linkarzu/dotfiles-latest/blob/10ea8be847622f712f42b642fd043569d8e062fd/zshrc/zshrc-file.sh
+install_xterm_kitty_terminfo() {
+  # Attempt to get terminfo for xterm-kitty
+  if ! infocmp xterm-kitty &>/dev/null; then
+    echo "xterm-kitty terminfo not found. Installing..."
+    # Create a temp file
+    tempfile=$(mktemp)
+    # Download the kitty.terminfo file
+    # https://github.com/kovidgoyal/kitty/blob/master/terminfo/kitty.terminfo
+    if curl -o "$tempfile" https://raw.githubusercontent.com/kovidgoyal/kitty/master/terminfo/kitty.terminfo; then
+      echo "Downloaded kitty.terminfo successfully."
+      # Compile and install the terminfo entry for my current user
+      if tic -x -o ~/.terminfo "$tempfile"; then
+        echo "xterm-kitty terminfo installed successfully."
+      else
+        echo "Failed to compile and install xterm-kitty terminfo."
+      fi
+    else
+      echo "Failed to download kitty.terminfo."
+    fi
+    # Remove the temporary file
+    rm "$tempfile"
+  fi
+}
+install_xterm_kitty_terminfo
+
+# To support image.nvim
+export DYLD_FALLBACK_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_FALLBACK_LIBRARY_PATH"
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source_if_exists "$HOME/.sdkman/bin/sdkman-init.sh"
