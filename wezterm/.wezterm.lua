@@ -6,7 +6,7 @@ local config = wezterm.config_builder()
 
 -- This is where you actually apply your config choices
 
-config.font = wezterm.font("JetBrainsMono Nerd Font Mono")
+config.font = wezterm.font("MesloLGS Nerd Font")
 config.font_size = 15.5
 config.enable_tab_bar = false
 config.window_padding = {
