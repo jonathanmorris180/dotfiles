@@ -15,7 +15,8 @@ config.window_padding = {
 	top = 5,
 	bottom = 5,
 }
-config.term = "xterm-kitty" -- Needed for image.nvim to work
+-- config.term = "xterm-kitty" -- Needed for image.nvim to work (see here: https://www.youtube.com/watch?v=8m88Mh12yVw&ab_channel=linkarzu) but apparently not
+config.term = "tmux-256color" -- Seems to work fine with images now, and this allows the cursor to behave as expected in Neovim
 
 -- To enable kitty graphics
 -- https://github.com/wez/wezterm/issues/986
@@ -23,6 +24,7 @@ config.term = "xterm-kitty" -- Needed for image.nvim to work
 -- Not sure, so I'm enabling it just in case
 -- https://github.com/wez/wezterm/issues/1406#issuecomment-996253377
 config.enable_kitty_graphics = true
+-- config.cursor_blink_rate = 0
 
 config.window_decorations = "TITLE | RESIZE"
 config.window_close_confirmation = "NeverPrompt"
