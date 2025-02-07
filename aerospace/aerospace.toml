@@ -209,7 +209,7 @@ alt-shift-k = ['join-with up', 'mode main']
 alt-shift-l = ['join-with right', 'mode main']
 
 [[on-window-detected]]
-if.app-id = 'com.googlecode.iterm2'
+if.app-id = 'com.github.wez.wezterm'
 run = 'move-node-to-workspace 2' 
 
 [[on-window-detected]]
@@ -228,10 +228,14 @@ run = 'move-node-to-workspace 8'
 if.app-id = 'com.tinyspeck.slackmacgap'
 run = 'move-node-to-workspace 4'
 
-[[on-window-detected]]
-if.app-id = 'org.jkiss.dbeaver.core.product'
-run = 'move-node-to-workspace 5'
+# [[on-window-detected]]
+# if.app-id = 'org.jkiss.dbeaver.core.product'
+# run = 'move-node-to-workspace 5'
 
 [[on-window-detected]]
 if.app-id = 'com.postmanlabs.mac'
+run = 'move-node-to-workspace 5'
+
+[[on-window-detected]]
+if.app-id = 'notion.id'
 run = 'move-node-to-workspace 5'
