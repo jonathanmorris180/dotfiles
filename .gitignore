@@ -1,3 +1,4 @@
 # temporary .zshrc files
 .!*.zshrc
 .DS_Store
+**.log
