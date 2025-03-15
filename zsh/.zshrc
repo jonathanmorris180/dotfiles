@@ -260,6 +260,12 @@ install_wezterm_terminfo
 # To support image.nvim
 export DYLD_FALLBACK_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_FALLBACK_LIBRARY_PATH"
 
+# To get to zsh help pages
+unalias run-help 2>/dev/null
+autoload run-help
+export HELPDIR=/usr/share/zsh/5.9/help
+alias help=run-help # Bash-style help for builtins
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source_if_exists "$HOME/.sdkman/bin/sdkman-init.sh"
