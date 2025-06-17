@@ -27,7 +27,7 @@ then
     eval "$(pyenv init -)"
 fi
 
-export MANPAGER="nvim +Man!"
+export MANPAGER="NVIM_DISABLE_AUTOSESSION=1 nvim +Man!"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
