@@ -34,8 +34,10 @@ export MANPAGER="NVIM_DISABLE_AUTOSESSION=1 nvim +Man!"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="powerlevel10k/powerlevel10k"
-source_if_exists $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme
+if [ -d "$ZSH_CUSTOM/themes/powerlevel10k" ]; then
+  ZSH_THEME="powerlevel10k/powerlevel10k" # if installed manually
+fi
+source_if_exists $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme # installed with brew
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
