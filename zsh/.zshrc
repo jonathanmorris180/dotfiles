@@ -125,7 +125,9 @@ source_if_exists $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.
 
 # see issue: https://github.com/jeffreytse/zsh-vi-mode/issues/4
 function after_init() {
-    # created with $(brew --prefix)/opt/fzf/install after installing fzf
+    # Set up fzf key bindings and fuzzy completion (new installation method - see https://github.com/junegunn/fzf?tab=readme-ov-file#setting-up-shell-integration)
+    source_if_exists <(fzf --zsh)
+    # created with $(brew --prefix)/opt/fzf/install after installing fzf (old installation method)
     source_if_exists ~/.fzf.zsh
     source_if_exists $ZSH_CUSTOM/plugins/zsh-fzf-history-search/zsh-fzf-history-search.plugin.zsh
 }
