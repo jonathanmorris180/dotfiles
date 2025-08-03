@@ -101,9 +101,12 @@ source_if_exists $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme # 
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     git
-    zsh-autosuggestions
     web-search
 )
+if [ -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
+    plugins+=(zsh-autosuggestions) # For manual installation
+fi
+source_if_exists $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh # brew installation
 
 source_if_exists $ZSH/oh-my-zsh.sh
 
