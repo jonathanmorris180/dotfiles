@@ -18,6 +18,7 @@ source_if_exists "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom" # default
 
 export PYENV_ROOT="$HOME/.pyenv"
 [[ ":$PATH:" =~ ":$PYENV_ROOT/bin:" ]] || [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
