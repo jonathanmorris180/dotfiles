@@ -203,6 +203,9 @@ alias pwb='git rev-parse --abbrev-ref HEAD'
 # Size of all files and dirs in current dir (files are listed by the find command since du -ha doesn't seem to work well on Mac)
 alias fs='du -h -d 1 2> /dev/null | sort -hr && find . -type f -maxdepth 1 -exec du -ah {} +'
 
+# Get the locally installed SDKMAN! versions 
+alias sdkls='ls ~/.sdkman/candidates/* | grep -v "current"'
+
 source_if_exists $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export NVM_DIR="$HOME/.nvm"
