@@ -8,7 +8,8 @@ dirs=(
     "$HOME/Documents/repos/dotfiles" 
     "$HOME/Documents/vs-code" 
     "$HOME/Documents/vs-code/dotfiles" 
-    "$HOME/Library/CloudStorage/GoogleDrive-jonathanmorris@spotify.com/My Drive/Tickets" 
+    "$HOME/Documents/repos/asgard/services"
+    "$HOME/Documents/repos/asgard/libraries"
 )
 
 if [[ $# -eq 1 ]]; then
