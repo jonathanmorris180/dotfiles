@@ -221,6 +221,10 @@ if.app-id = 'com.jetbrains.intellij'
 run = 'move-node-to-workspace 7'
 
 [[on-window-detected]]
+if.app-id = 'com.jetbrains.intellij.ce' # Community Edition
+run = 'move-node-to-workspace 7'
+
+[[on-window-detected]]
 if.app-id = 'com.microsoft.VSCode'
 run = 'move-node-to-workspace 8'
 
