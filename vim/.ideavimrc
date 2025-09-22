@@ -1,4 +1,68 @@
+" See https://www.cyberwizard.io/posts/the-ultimate-ideavim-setup/ for reference
+
+set scrolloff=10
+set showmode
+set showcmd
+set visualbell
 set relativenumber
 set number
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+
+let mapleader = " "
+
+" Briefly highlight yanked text
+set highlightedyank
+
+" Vim-like control over the file explorer
+set NERDTree 
 
 Plug 'tpope/vim-surround'
+
+" Key mappings
+inoremap jk <Esc>
+
+" Pane navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
+" nnoremap <C-k> <C-w>k " Not needed since I don't split vertically
+" nnoremap <C-j> <C-w>j
+
+" Split
+nnoremap <leader>sv :vsplit<CR>
+
+" Quit
+nnoremap <leader>c :q!<CR>
+
+" Open/close NERDTree (use q to exit)
+map <leader>e :NERDTreeToggle<CR>
+
+" Folding
+map <leader>zc <Action>(CollapseAllRegions)<CR>
+map <leader>ze <Action>(ExpandAllRegions)<CR>
+
+" File navigation
+map <C-f> <action>(GotoFile)
+map <leader>fb <action>(RecentFiles)
+map <leader>fs <action>(FindInPath)
+
+" Refactoring
+map <leader>rn <Action>(RenameElement)
+map <leader>rs <Action>(ChangeSignature)
+map <leader>rr <Action>(Refactorings.QuickListPopupAction)
+
+" Go to code
+nmap gd <Action>(GotoDeclaration)
+nmap gy <Action>(GotoTypeDeclaration)
+nmap gi <Action>(GotoImplementation)
+nmap gf <Action>(ShowUsages)
+nmap <C-p> <Action>(Back)
+nmap <C-n> <Action>(Forward)
+
+" Errors
+map ]d <Action>(GotoNextError)<CR>
+map [d <Action>(GotoPreviousError)<CR>
+
+map <leader>j :nohl<CR>
