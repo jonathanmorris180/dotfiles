@@ -286,7 +286,8 @@ autoload run-help
 export HELPDIR=/usr/share/zsh/5.9/help
 alias help=run-help # Bash-style help for builtins
 
+[[ -s "/Users/jonathanmorris/.gvm/scripts/gvm" ]] && source "/Users/jonathanmorris/.gvm/scripts/gvm"
+
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source_if_exists "$HOME/.sdkman/bin/sdkman-init.sh"
-
