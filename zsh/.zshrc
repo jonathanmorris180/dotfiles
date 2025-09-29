@@ -187,6 +187,14 @@ bindkey -M vicmd "^v" edit-command-line # use Neovim for editing the current lin
 # gpsup='git push --set-upstream origin $(git_current_branch)'
 # grhh='git reset --hard'
 
+function git_log_with_diff() {
+  echo "From (YYYY-MM-DD HH:MM) (local time):"
+  read from
+  echo "To (YYYY-MM-DD HH:MM) (local time): "
+  read to
+  git log --reverse --since="$from" --until="$to" --pretty=format:"%H" --date=human | xargs -I {} git show {}
+}
+
 function checkout_fzf() {
   git branch | fzf | xargs git checkout
 }
@@ -202,6 +210,7 @@ alias gcm='git commit -m'
 alias gcof='checkout_fzf'
 alias gmf='merge_fzf'
 alias pwb='git rev-parse --abbrev-ref HEAD'
+alias gld='git_log_with_diff'
 
 # Size of all files and dirs in current dir (files are listed by the find command since du -ha doesn't seem to work well on Mac)
 alias fs='du -h -d 1 2> /dev/null | sort -hr && find . -type f -maxdepth 1 -exec du -ah {} +'
