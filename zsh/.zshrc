@@ -187,11 +187,31 @@ bindkey -M vicmd "^v" edit-command-line # use Neovim for editing the current lin
 # gpsup='git push --set-upstream origin $(git_current_branch)'
 # grhh='git reset --hard'
 
+function git_log_file() {
+  echo "Enter the file path:"
+  read file_path
+  git log --follow --patch -- "$file_path"
+}
+
 function git_log_with_diff() {
-  echo "From (YYYY-MM-DD HH:MM) (local time):"
-  read from
-  echo "To (YYYY-MM-DD HH:MM) (local time): "
-  read to
+  echo -n "Single day? (Y/n - defaults to y): "
+  read -r single
+  if [[ -z "$single" || "$single" == [Yy] ]]; then
+    echo -n "Date (YYYY-MM-DD) (local time): "
+    read -r day
+    if ! [[ "$day" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
+      echo "Invalid date format. Expected YYYY-MM-DD."
+      return 1
+    fi
+    next=$(date -j -v+1d -f "%Y-%m-%d" "$day" "+%Y-%m-%d")
+    from="$day 00:00"
+    to="$next 00:00"
+  else
+    echo "From (YYYY-MM-DD HH:MM) (local time):"
+    read from
+    echo "To (YYYY-MM-DD HH:MM) (local time): "
+    read to
+  fi
   git log --reverse --since="$from" --until="$to" --pretty=format:"%H" --date=human | xargs -I {} git show {}
 }
 
@@ -211,6 +231,7 @@ alias gcof='checkout_fzf'
 alias gmf='merge_fzf'
 alias pwb='git rev-parse --abbrev-ref HEAD'
 alias gld='git_log_with_diff'
+alias glf='git_log_file'
 
 # Size of all files and dirs in current dir (files are listed by the find command since du -ha doesn't seem to work well on Mac)
 alias fs='du -h -d 1 2> /dev/null | sort -hr && find . -type f -maxdepth 1 -exec du -ah {} +'
