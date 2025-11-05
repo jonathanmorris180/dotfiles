@@ -239,6 +239,9 @@ alias fs='du -h -d 1 2> /dev/null | sort -hr && find . -type f -maxdepth 1 -exec
 # Get the locally installed SDKMAN! versions 
 alias sdkls='ls ~/.sdkman/candidates/* | grep -v "current"'
 
+# List all the tldr options
+alias tldrf='tldr --list | fzf --preview "tldr {1} --color=always" --preview-window=right,70% | xargs tldr'
+
 source_if_exists $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export NVM_DIR="$HOME/.nvm"
