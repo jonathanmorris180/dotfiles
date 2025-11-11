@@ -193,6 +193,12 @@ function git_log_file() {
   git log --follow --patch -- "$file_path"
 }
 
+function github_browse_file() {
+  echo -n "File name: "
+  read -r file
+  gh browse -c="$(git rev-parse HEAD)" "$file"
+}
+
 function git_log_with_diff() {
   echo -n "Single day? (Y/n - defaults to y): "
   read -r single
@@ -232,6 +238,7 @@ alias gmf='merge_fzf'
 alias pwb='git rev-parse --abbrev-ref HEAD'
 alias gld='git_log_with_diff'
 alias glf='git_log_file'
+alias ghb='github_browse_file'
 
 # Size of all files and dirs in current dir (files are listed by the find command since du -ha doesn't seem to work well on Mac)
 alias fs='du -h -d 1 2> /dev/null | sort -hr && find . -type f -maxdepth 1 -exec du -ah {} +'
