@@ -187,6 +187,29 @@ bindkey -M vicmd "^v" edit-command-line # use Neovim for editing the current lin
 # gpsup='git push --set-upstream origin $(git_current_branch)'
 # grhh='git reset --hard'
 
+git_checkout_history() {
+  local count=0
+  local i=1
+  local seen=()
+  local limit=${1:-5} # Default to 5
+
+  while (( count < limit )); do
+    local b=$(git name-rev --name-only --exclude='refs/tags/*' --exclude='refs/remotes/*' "@{-${i}}" 2>/dev/null)
+    if [[ -z "$b" ]]; then
+      ((i++))
+      continue
+    fi
+    if (( ${seen[(Ie)$b]} )); then # Zsh subscript expression - I returns the index of the matching element, e is for pattern matching (wildcard)
+      ((i++))
+      continue
+    fi
+    echo "$b"
+    seen+=("$b")
+    ((count++))
+    ((i++))
+  done
+}
+
 function git_log_file() {
   echo "Enter the file path:"
   read file_path
@@ -239,6 +262,13 @@ alias pwb='git rev-parse --abbrev-ref HEAD'
 alias gld='git_log_with_diff'
 alias glf='git_log_file'
 alias ghb='github_browse_file'
+
+# Instead of an alias, use a function when args are needed
+gcoh() {
+  local limit=${1:-10}  # default to 10 if no argument
+  git_checkout_history "$limit" | fzf | xargs git checkout
+}
+
 
 # Size of all files and dirs in current dir (files are listed by the find command since du -ha doesn't seem to work well on Mac)
 alias fs='du -h -d 1 2> /dev/null | sort -hr && find . -type f -maxdepth 1 -exec du -ah {} +'
