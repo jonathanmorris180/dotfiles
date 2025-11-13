@@ -219,7 +219,9 @@ function git_log_file() {
 function github_browse_file() {
   echo -n "File name: "
   read -r file
-  gh browse -c="$(git rev-parse HEAD)" "$file"
+  local ref="$(git rev-parse --git-common-dir)/refs/remotes/origin/main"
+  local default_branch=$([ -f "$ref" ] && echo -n main || echo -n master) # Only works if the default branch is main or master
+  gh browse -c="$(git rev-parse origin/$default_branch)" "$file" # This way, we find a commit that's actually been pushed to the remote
 }
 
 function git_log_with_diff() {
