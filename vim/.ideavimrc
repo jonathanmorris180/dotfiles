@@ -37,21 +37,21 @@ nnoremap <leader>sv :vsplit<CR>
 nnoremap <leader>c :q!<CR>
 
 " Open/close NERDTree (use q to exit)
-map <leader>e :NERDTreeToggle<CR>
+nmap <leader>e :NERDTreeToggle<CR>
 
 " Folding
-map <leader>zc <Action>(CollapseAllRegions)<CR>
-map <leader>ze <Action>(ExpandAllRegions)<CR>
+nmap <leader>zc <Action>(CollapseAllRegions)<CR>
+nmap <leader>ze <Action>(ExpandAllRegions)<CR>
 
 " File navigation
-map <C-f> <action>(GotoFile)
-map <leader>fb <action>(RecentFiles)
-map <leader>fs <action>(FindInPath)
+nmap <C-f> <action>(GotoFile)
+nmap <leader>fb <action>(RecentFiles)
+nmap <leader>fs <action>(FindInPath)
 
 " Refactoring
-map <leader>rn <Action>(RenameElement)
-map <leader>rs <Action>(ChangeSignature)
-map <leader>rr <Action>(Refactorings.QuickListPopupAction)
+nmap <leader>rn <Action>(RenameElement)
+nmap <leader>rs <Action>(ChangeSignature)
+nmap <leader>rr <Action>(Refactorings.QuickListPopupAction)
 
 " Go to code
 nmap gd <Action>(GotoDeclaration)
@@ -62,7 +62,21 @@ nmap <C-p> <Action>(Back)
 nmap <C-n> <Action>(Forward)
 
 " Errors
-map ]d <Action>(GotoNextError)<CR>
-map [d <Action>(GotoPreviousError)<CR>
+nmap ]d <Action>(GotoNextError)<CR>
+nmap [d <Action>(GotoPreviousError)<CR>
 
-map <leader>j :nohl<CR>
+" Tabs
+nmap <leader>tl <Action>(NextTab)<CR>
+nmap <leader>th <Action>(PreviousTab)<CR>
+
+" Save
+nmap <leader>w <Action>(SaveAll)<CR>
+
+" Terminal
+nmap <leader>tt <Action>(ActivateTerminalToolWindow)<CR>
+" (I tried finding a command to toggle the RH pane but no luck)
+
+" Block comment
+vmap gc <Action>(CommentByBlockComment)<CR>
+
+nmap <leader>j :nohl<CR>
