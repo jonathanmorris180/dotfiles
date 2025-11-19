@@ -51,7 +51,7 @@ nmap <leader>fs <action>(FindInPath)
 " Refactoring
 nmap <leader>rn <Action>(RenameElement)
 nmap <leader>rs <Action>(ChangeSignature)
-nmap <leader>rr <Action>(Refactorings.QuickListPopupAction)
+nmap <leader>ra <Action>(Refactorings.QuickListPopupAction)
 
 " Go to code
 nmap gd <Action>(GotoDeclaration)
@@ -78,5 +78,8 @@ nmap <leader>tt <Action>(ActivateTerminalToolWindow)<CR>
 
 " Block comment
 vmap gc <Action>(CommentByBlockComment)<CR>
+
+" Block comment
+nmap <leader>re <Action>(SelectInProjectView)<CR>
 
 nmap <leader>j :nohl<CR>
