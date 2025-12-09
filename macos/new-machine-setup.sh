@@ -14,7 +14,7 @@ GIT_USER_NAME="Jonathan Morris"
 
 echo
 echo "########################################################################"
-echo "Installing homebrew"
+echo "Installing xcode-select"
 echo "########################################################################"
 
 if ! xcode-select -p &>/dev/null; then
@@ -132,7 +132,8 @@ echo "---------------------------------------------"
 echo "Do you want to:"
 echo "  (n) Generate a NEW SSH key"
 echo "  (e) Enter the path to an EXISTING SSH key"
-read -p "Choose (n/e): " KEY_CHOICE
+echo "  (s) Skip"
+read -p "Choose (n/e/s): " KEY_CHOICE
 
 case "$KEY_CHOICE" in
     n|N)
@@ -177,7 +178,11 @@ case "$KEY_CHOICE" in
             exit 1
         fi
         ;;
-    
+
+    s|S)
+        echo "Skipping SSH setup..."
+        ;;
+
     *)
         echo "❌ Invalid choice. Exiting."
         exit 1
@@ -231,7 +236,7 @@ mkdir -p "$HOME/Documents/repos"
 # Function to clone or update repositories
 clone_and_update_repo() {
   local repo_name=$1
-  local git_repo="git@github.com:linkarzu/$repo_name.git"
+  local git_repo="git@github.com:jonathanmorris180/$repo_name.git"
   local repo_path="$HOME/Documents/repos/$repo_name"
 
   echo
@@ -296,7 +301,7 @@ clone_and_update_repo "salesforce.nvim"
 clone_and_update_repo "resume"
 clone_and_update_repo "aoc"
 clone_and_update_repo "Adv360-Pro-ZMK"
-clone_and_update_repo "apex-fuzy-finder"
+clone_and_update_repo "apex-fuzzy-finder"
 clone_and_update_repo "leetcode.nvim-solutions"
 
 # -----------------------------------------------------------------------------
@@ -342,7 +347,6 @@ install_if_missing() {
 }
 
 formulae=(
-  visual-studio-code
   btop
   fd
   fzf
@@ -378,6 +382,7 @@ formulae=(
 )
 
 casks=(
+  visual-studio-code
   nikitabobko/tap/aerospace
   google-chrome
   cursor
@@ -395,6 +400,29 @@ casks=(
 
 install_if_missing "${formulae[@]}" formula
 install_if_missing "${casks[@]}" cask
+
+
+echo
+echo "########################################################################"
+echo "Oh My Zsh"
+echo "########################################################################"
+
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+  echo "Oh My Zsh not found, installing..."
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+else
+  echo "Oh My Zsh already installed."
+fi
+
+echo
+echo "########################################################################"
+echo "Salesforce CLI"
+echo "########################################################################"
+
+if ! command -v sf &>/dev/null; then
+  echo "Installing SF CLI"
+  npm install @salesforce/cli --global
+fi
 
 echo
 echo "########################################################################"
@@ -474,7 +502,7 @@ osascript -e 'tell application "System Events" to make login item at end with pr
 # To see what the CURRENT VALUE for each the **Key repeat rate** and the **Delay until repeat** are
 # defaults read -g KeyRepeat
 # defaults read -g InitialKeyRepeat
-defaults write -g KeyRepeat -int 1
+defaults write -g KeyRepeat -int 2 # Can be set lower, but then I tend to have issues with accidental repeats
 defaults write -g InitialKeyRepeat -int 15
 
 # Set mouse to secondary click on the right side
@@ -527,12 +555,15 @@ echo "Open installed apps"
 echo "########################################################################"
 
 open -a 'WezTerm'
+open -a 'Aerospace'
 
 echo -e "${boldGreen}
 Installation complete! Restart the computer now to ensure all settings have been applied.
 
 Manual steps to check:
 - Set up SSH for DigitalOcean and Dokku by copying from another device to ~/.ssh/config
+- Start up Aerospace again if you had to grant permissions (it doesn't automatically open after they are granted)
+- Install tmux plugins with prefix + I (capital i)
 
 ${noColor}
 "
