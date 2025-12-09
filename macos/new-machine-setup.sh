@@ -404,6 +404,13 @@ install_if_missing "${casks[@]}" cask
 
 echo
 echo "########################################################################"
+echo "Node.js"
+echo "########################################################################"
+
+nvm install 24.11.1 # Needed for latest versions of the SF CLI
+
+echo
+echo "########################################################################"
 echo "Oh My Zsh"
 echo "########################################################################"
 
@@ -422,6 +429,19 @@ echo "########################################################################"
 if ! command -v sf &>/dev/null; then
   echo "Installing SF CLI"
   npm install @salesforce/cli --global
+fi
+
+echo
+echo "########################################################################"
+echo "SDKMAN!"
+echo "########################################################################"
+
+if ! command -v sdk &>/dev/null; then
+  echo "Installing SDKMAN!"
+  curl -s "https://get.sdkman.io" | bash
+  source "$HOME/.sdkman/bin/sdkman-init.sh"
+  sdk install java 23.0.2-tem
+  sdk install maven 3.9.11
 fi
 
 echo
