@@ -348,12 +348,14 @@ install_if_missing() {
 
 formulae=(
   btop
+  dockutil
   fd
   fzf
   gh
   git-filter-repo
   git-gui
   helm
+  postgresql # Don't install specific version - we want psql to be symlinked automatically
   imagemagick
   jq
   ktlint
@@ -395,12 +397,21 @@ casks=(
   postman
   visual-studio-code
   wezterm
+  slack
+  whatsapp
 )
 
 
 install_if_missing "${formulae[@]}" formula
 install_if_missing "${casks[@]}" cask
 
+
+echo
+echo "########################################################################"
+echo "Python"
+echo "########################################################################"
+
+pipx install virtualenv 
 
 echo
 echo "########################################################################"
@@ -484,10 +495,61 @@ echo "########################################################################"
 echo "Configure macos system settings"
 echo "########################################################################"
 
+# NOTE: Most of the settings below were configured on Sequoia 15.6 (24G84)
+# (check OS with `system_profiler SPSoftwareDataType`)
+
+# Remove items from dock
+KEEP=("System Settings" "Downloads")
+
+is_kept() {
+  local item="$1"
+  for k in "${KEEP[@]}"; do
+    if [[ "$item" == "$k" ]]; then
+      return 0
+    fi
+  done
+  return 1
+}
+
+# Read dockutil output line by line, splitting on TAB
+dockutil --list | while IFS=$'\t' read -r name rest; do
+  # Skip empty names (just in case)
+  [[ -z "$name" ]] && continue
+
+  if is_kept "$name"; then
+    echo "Keeping: $name"
+    continue
+  fi
+
+  echo "Removing: $name"
+  dockutil --remove "$name" --no-restart
+done
+
+APPS=(
+  "/Applications/DBeaver.app"
+  "/Applications/Docker.app"
+  "/Applications/WezTerm.app"
+  "/Applications/Slack.app"
+  "/Applications/Google Chrome.app"
+  "/Applications/Obsidian.app"
+  "/Applications/Postman.app"
+  "/Applications/WhatsApp.app"
+)
+
+for app in "${APPS[@]}"; do
+  if [[ -d "$app" ]]; then
+    echo "Adding: $app"
+    dockutil --add "$app" --no-restart
+  else
+    echo "Skipping (not found): $app" >&2
+  fi
+done
+
 # Configure apps that start after booting up (login items)
 # https://apple.stackexchange.com/questions/310495/can-login-items-be-added-via-the-command-line-in-high-sierra
 osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/Flycut.app", hidden:false}'
 osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/AeroSpace.app", hidden:false}'
+osascript -e 'tell application "System Events" to make login item at end with properties {path:"/Applications/JetBrains Toolbox.app", hidden:false}'
 
 # TO PREVENT MAC FROM REOPENING APPS AFTER A REBOOT
 # MacOS stores the current session info in a file while your logged on and
@@ -513,7 +575,7 @@ osascript -e 'tell application "System Events" to make login item at end with pr
 # defaults read > ~/macos-before-change.txt
 # Then go and make the change in system settings
 # defaults read > ~/macos-after-change.txt
-# diff ~/macos-before-change.txt ~/macos-after-change.txt
+# Then open Neovim on the first file and run :vert diffs <second-file>
 # NOTE: There are some settings, like the trackpad ones that only work on the
 # laptop with a trackpad
 
@@ -527,8 +589,25 @@ defaults write -g InitialKeyRepeat -int 15
 
 # Set mouse to secondary click on the right side
 # To get CURRENT VALUE
-# defaults read com.apple.driver.AppleBluetoothMultitouch.mouse MouseButtonMode
+# This doesn't seem to work for some reason even though the value seems to update correctly via the CLI (no idea why)
+# Below are two different places it needs to be set
 defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseButtonMode -string "TwoButton"
+defaults write com.apple.driver.AppleBluetoothMultitouch.MouseButtonMode -string "TwoButton"
+
+# Allows swipe left or right (navigate forwards and back in Chrome with a finger)
+defaults write "Apple Global Domain" AppleEnableMouseSwipeNavigateWithScrolls -bool true
+
+# Show item info below desktop icons
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:showItemInfo true" ~/Library/Preferences/com.apple.finder.plist
+
+# Enable snap-to-grid for desktop icons
+/usr/libexec/PlistBuddy -c "Set :DesktopViewSettings:IconViewSettings:arrangeBy grid" ~/Library/Preferences/com.apple.finder.plist
+
+# Empty Trash securely by default
+defaults write com.apple.finder EmptyTrashSecurely -bool true
+
+# Show the ~/Library folder
+chflags nohidden ~/Library
 
 # Mouse cursor speed
 # Max value via system settings is 3, but notice I set it to 4 via the command
@@ -546,6 +625,15 @@ defaults write com.apple.Accessibility ReduceMotionEnabled -bool true
 
 # Automatically hide the dock
 defaults write com.apple.dock autohide -bool true
+
+# Group applications together (helps to find applications with swipe up since Mac doesn't seem to like Aerospace groupings)
+defaults write com.apple.WindowManager AppWindowGroupingBehavior -bool "true"
+
+# Display full POSIX path as Finder window title
+defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+
+# Disable the "Are you sure you want to open this application?" dialog
+defaults write com.apple.LaunchServices LSQuarantine -bool false
 
 # Disable Show Recent Applications in Dock
 # To get CURRENT VALUE
@@ -581,9 +669,15 @@ echo -e "${boldGreen}
 Installation complete! Restart the computer now to ensure all settings have been applied.
 
 Manual steps to check:
-- Set up SSH for DigitalOcean and Dokku by copying from another device to ~/.ssh/config
+- Set up SSH for DigitalOcean and Dokku by copying from another device to ~/.ssh/config (can use AirDrop)
 - Start up Aerospace again if you had to grant permissions (it doesn't automatically open after they are granted)
 - Install tmux plugins with prefix + I (capital i)
+- Install IntelliJ with JetBrains Toolbox (there seems to be a CLI that could be used for this, but I can't find the JAR anywhere: https://www.jetbrains.com/help/toolbox-app/toolbox-app-cli.html)
+- Set up right-click with mouse (the command above doesn't seem to work for some reason)
+- Add .env files from password manager
+- Go through README to set up Forcecode development
+- Import ORGanizer extension backup (you'll need to export from other laptop and share via AirDrop)
+- Allow notifications for Slack
 
 ${noColor}
 "
