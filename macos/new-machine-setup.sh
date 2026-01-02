@@ -381,6 +381,7 @@ formulae=(
   zsh-autosuggestions
   zsh-syntax-highlighting
   zsh-vi-mode
+  opencode
 )
 
 casks=(
