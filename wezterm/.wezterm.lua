@@ -10,10 +10,10 @@ config.font = wezterm.font("MesloLGS Nerd Font")
 config.font_size = 15.5
 config.enable_tab_bar = false
 config.window_padding = {
-	left = 5,
-	right = 5,
-	top = 5,
-	bottom = 5,
+  left = 5,
+  right = 5,
+  top = 5,
+  bottom = 5,
 }
 -- config.term = "xterm-kitty" -- Supposedly needed for image.nvim to work (see here: https://www.youtube.com/watch?v=8m88Mh12yVw&ab_channel=linkarzu) but apparently not
 -- config.term = "tmux-256color" -- Seems to work fine with images and allows the cursor to behave as expected in Neovim
@@ -30,5 +30,11 @@ config.enable_kitty_graphics = true
 config.window_decorations = "TITLE | RESIZE"
 config.window_close_confirmation = "NeverPrompt"
 config.max_fps = 120
+
+config.keys = {
+  {
+    key = "raw:36", mods = "SHIFT", action = wezterm.action { SendString = "\x1b[13;2u" } -- So that Shift+Enter works properly in OpenCode
+  }
+}
 
 return config

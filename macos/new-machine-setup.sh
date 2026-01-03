@@ -368,6 +368,7 @@ formulae=(
   basictex
   tree
   pipx
+  luarocks # Lua package manager
   pnpm
   powerlevel10k
   grpcurl
@@ -441,6 +442,16 @@ echo "########################################################################"
 if ! command -v sf &>/dev/null; then
   echo "Installing SF CLI"
   npm install @salesforce/cli --global
+fi
+
+echo
+echo "########################################################################"
+echo "Croissant (Lua REPL)"
+echo "########################################################################"
+
+if ! command -v croissant &>/dev/null; then
+  echo "Installing croissant"
+  luarocks install croissant
 fi
 
 echo
@@ -679,6 +690,7 @@ Manual steps to check:
 - Go through README to set up Forcecode development
 - Import ORGanizer extension backup (you'll need to export from other laptop and share via AirDrop)
 - Allow notifications for Slack
+- Install apex_ls manually via Mason
 
 ${noColor}
 "
