@@ -102,9 +102,15 @@ source_if_exists $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme # 
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fzf-tab" ]; then
+  # Install fzf-tab if not installed
+  git clone "https://github.com/Aloxaf/fzf-tab" "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/fzf-tab"
+fi
+
 plugins=(
     git
     web-search
+    fzf-tab # Requires fzf to be installed - see https://github.com/Aloxaf/fzf-tab
 )
 if [ -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
     plugins+=(zsh-autosuggestions) # For manual installation
