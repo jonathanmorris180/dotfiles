@@ -383,6 +383,7 @@ formulae=(
   zsh-syntax-highlighting
   zsh-vi-mode
   opencode
+  pgformatter # For conform.nvim SQL formatting
 )
 
 casks=(
