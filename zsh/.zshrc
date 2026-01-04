@@ -134,6 +134,7 @@ else
 fi
 
 source_if_exists $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+source_if_exists ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-vi-man/zsh-vi-man.plugin.zsh # https://github.com/TunaCuma/zsh-vi-man
 
 # see issue: https://github.com/jeffreytse/zsh-vi-mode/issues/4
 function after_init() {
