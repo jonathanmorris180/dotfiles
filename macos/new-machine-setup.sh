@@ -691,7 +691,7 @@ Manual steps to check:
 - Go through README to set up Forcecode development
 - Import ORGanizer extension backup (you'll need to export from other laptop and share via AirDrop)
 - Allow notifications for Slack
-- Install apex_ls manually via Mason
+- Run MasonLockRestore
 
 ${noColor}
 "
