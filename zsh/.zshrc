@@ -224,8 +224,8 @@ function git_log_file() {
 }
 
 function github_browse_file() {
-  echo -n "File name: "
-  read -r file
+  file=""
+  vared -p "File name: " file # Uses zsh editor, which has its own vi mode (see `man zshzle`)
   local ref="$(git rev-parse --git-common-dir)/refs/remotes/origin/main"
   local default_branch=$([ -f "$ref" ] && echo -n main || echo -n master) # Only works if the default branch is main or master
   gh browse -c="$(git rev-parse origin/$default_branch)" "$file" # This way, we find a commit that's actually been pushed to the remote
@@ -233,10 +233,11 @@ function github_browse_file() {
 
 function git_log_with_diff() {
   echo -n "Single day? (Y/n - defaults to y): "
-  read -r single
-  if [[ -z "$single" || "$single" == [Yy] ]]; then
-    echo -n "Date (YYYY-MM-DD) (local time): "
-    read -r day
+  read -k 1 single
+  [[ $single == $'\n' ]] && single='y' # read -k means that if the user hits enter, $single will be $'\n'
+  if [[ "$single" == [Yy] ]]; then
+    day=""
+    vared -p "Date (YYYY-MM-DD) (local time): " day # Uses zsh editor, which has its own vi mode (see `man zshzle`)
     if ! [[ "$day" =~ ^[0-9]{4}-[0-9]{2}-[0-9]{2}$ ]]; then
       echo "Invalid date format. Expected YYYY-MM-DD."
       return 1
@@ -245,10 +246,10 @@ function git_log_with_diff() {
     from="$day 00:00"
     to="$next 00:00"
   else
-    echo "From (YYYY-MM-DD HH:MM) (local time):"
-    read from
-    echo "To (YYYY-MM-DD HH:MM) (local time): "
-    read to
+    from=""
+    vared -p "From (YYYY-MM-DD HH:MM) (local time): " from
+    to=""
+    vared -p "To (YYYY-MM-DD HH:MM) (local time): " to
   fi
   git log --reverse --since="$from" --until="$to" --pretty=format:"%H" --date=human | xargs -I {} git show {}
 }
