@@ -262,6 +262,22 @@ function merge_fzf() {
   git branch | fzf | xargs git merge
 }
 
+# Gets the latest author for every file in a dir
+function get_authors() {
+  local p
+
+  if [[ -z "$1" ]]; then
+    echo -n "Directory path: "
+    read p
+  else
+    p="$1"
+  fi
+
+  git ls-files "$p" | while IFS= read -r f; do
+    git log -1 --pretty=format:'%an <%ae>%n' -- "$f"
+  done | sort -u
+}
+
 alias glp='git log --pretty=format:"%C(yellow)%h %C(blue)%ad %C(red)%d %C(reset)%s %C(green)[%an]" --decorate --date=format-local:"%Y-%m-%d %H:%M:%S"'
 alias gs='git status'
 alias gca='git commit --amend --no-edit'
