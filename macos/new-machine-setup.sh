@@ -370,6 +370,7 @@ formulae=(
   pipx
   luarocks # Lua package manager
   pnpm
+  redis
   powerlevel10k
   grpcurl
   prettier
