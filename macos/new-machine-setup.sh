@@ -371,6 +371,7 @@ formulae=(
   luarocks # Lua package manager
   pnpm
   redis
+  stripe/stripe-cli/stripe
   powerlevel10k
   grpcurl
   prettier
