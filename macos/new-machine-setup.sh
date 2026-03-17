@@ -384,6 +384,7 @@ formulae=(
   zsh-autosuggestions
   zsh-syntax-highlighting
   zsh-vi-mode
+  worktrunk
   opencode
   pgformatter # For conform.nvim SQL formatting
 )
