@@ -258,6 +258,12 @@ function checkout_fzf() {
   git branch | fzf | xargs git checkout
 }
 
+worktree_switch_fzf() {
+  local branch
+  branch=$(git branch --format='%(refname:short)' | fzf) || return
+  [ -n "$branch" ] && wt switch "$branch"
+}
+
 function merge_fzf() {
   git branch | fzf | xargs git merge
 }
@@ -277,6 +283,13 @@ function get_authors() {
     git log -1 --pretty=format:'%an <%ae>%n' -- "$f"
   done | sort -u
 }
+
+# Worktrunk aliases
+alias wl='wt list'
+alias ws='wt switch'
+alias wsf='worktree_switch_fzf'
+alias wr='wt remove'
+alias wm='wt merge' # Note that this merges the current branch into the target, not the target into the current like `git merge`
 
 alias glp='git log --pretty=format:"%C(yellow)%h %C(blue)%ad %C(red)%d %C(reset)%s %C(green)[%an]" --decorate --date=format-local:"%Y-%m-%d %H:%M:%S"'
 alias gs='git status'
