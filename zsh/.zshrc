@@ -231,6 +231,13 @@ function github_browse_file() {
   gh browse -c="$(git rev-parse origin/$default_branch)" "$file" # This way, we find a commit that's actually been pushed to the remote
 }
 
+function worktrunk_checkout_branch() {
+  local current="$(git rev-parse --abbrev-ref HEAD)"
+  branch="${current}-"
+  vared -p "New branch name (creating from $current): " branch # Uses zsh editor, which has its own vi mode (see `man zshzle`)
+  wt switch --create "$branch" --base=@
+}
+
 function git_log_with_diff() {
   echo -n "Single day? (Y/n - defaults to y): "
   read -k 1 single
@@ -258,7 +265,7 @@ function checkout_fzf() {
   git branch | fzf | xargs git checkout
 }
 
-worktree_switch_fzf() {
+worktrunk_switch_fzf() {
   local branch
   branch=$(git branch --format='%(refname:short)' | fzf) || return
   [ -n "$branch" ] && wt switch "$branch"
@@ -287,7 +294,8 @@ function get_authors() {
 # Worktrunk aliases
 alias wl='wt list'
 alias ws='wt switch'
-alias wsf='worktree_switch_fzf'
+alias wsf='worktrunk_switch_fzf'
+alias wco='worktrunk_checkout_branch'
 alias wr='wt remove'
 alias wm='wt merge' # Note that this merges the current branch into the target, not the target into the current like `git merge`
 
