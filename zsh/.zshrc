@@ -292,10 +292,10 @@ function get_authors() {
 }
 
 # Worktrunk aliases
-alias wl='wt list'
-alias ws='wt switch'
-alias wsf='worktrunk_switch_fzf'
-alias wco='worktrunk_checkout_branch'
+alias ws='wt list'
+alias wco='wt switch'
+alias wcof='worktrunk_switch_fzf'
+alias wcob='worktrunk_checkout_branch'
 alias wr='wt remove'
 alias wm='wt merge' # Note that this merges the current branch into the target, not the target into the current like `git merge`
 

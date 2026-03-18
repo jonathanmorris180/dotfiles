@@ -1,3 +1,4 @@
 $DOTFILES/bin/pmd.sh=$HOME/bin/pmd
 $DOTFILES/bin/tmux-sessionizer.sh=$HOME/bin/tmux-sessionizer
 $DOTFILES/bin/tmux-windowizer.sh=$HOME/bin/tmux-windowizer
+$DOTFILES/bin/wt-nvim-update-worktree.sh=$HOME/bin/wt-nvim-update-worktree

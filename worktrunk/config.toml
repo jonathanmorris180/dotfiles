@@ -1,0 +1,2 @@
+[post-switch]
+nvim = "~/bin/wt-nvim-update-worktree {{ worktree_path }}"
