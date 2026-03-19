@@ -231,9 +231,9 @@ function github_browse_file() {
   gh browse -c="$(git rev-parse origin/$default_branch)" "$file" # This way, we find a commit that's actually been pushed to the remote
 }
 
-function worktrunk_checkout_branch() {
+function worktrunk_checkout_clone() {
   local current="$(git rev-parse --abbrev-ref HEAD)"
-  branch="${current}-"
+  branch="${current}-clone"
   vared -p "New branch name (creating from $current): " branch # Uses zsh editor, which has its own vi mode (see `man zshzle`)
   wt switch --create "$branch" --base=@
 }
@@ -295,7 +295,7 @@ function get_authors() {
 alias ws='wt list'
 alias wco='wt switch'
 alias wcof='worktrunk_switch_fzf'
-alias wcob='worktrunk_checkout_branch'
+alias wcoc='worktrunk_checkout_clone'
 alias wr='wt remove'
 alias wm='wt merge' # Note that this merges the current branch into the target, not the target into the current like `git merge`
 
@@ -402,6 +402,32 @@ unalias run-help 2>/dev/null
 autoload run-help
 export HELPDIR=/usr/share/zsh/5.9/help
 alias help=run-help # Bash-style help for builtins
+
+nvim() {
+  if [ -n "${TMUX:-}" ]; then
+    local session_id window_index runtime_dir socket_dir socket
+
+    session_id="$(tmux display-message -p '#{session_id}')"
+    window_index="$(tmux display-message -p '#{window_index}')"
+
+    runtime_dir="${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}" # $TMPDIR normally has a value on Mac
+    socket_dir="${runtime_dir%/}/nvim-${USER}"
+    mkdir -p "$socket_dir"  # Use a stable dir, not mktemp, because we want a predictable socket path per tmux window.
+
+    socket="${socket_dir}/${session_id}-${window_index}.sock"
+
+    # If a socket file exists here but Neovim is not answering on it,
+    # it is probably stale (for example after a crash), so remove it.
+    if [ -S "$socket" ] && ! command nvim --server "$socket" --remote-expr '1' >/dev/null 2>&1; then
+      rm -f "$socket"
+    fi
+
+    command nvim --listen "$socket" "$@"
+    return
+  fi
+
+  command nvim "$@"
+}
 
 [[ -s "/Users/jonathanmorris/.gvm/scripts/gvm" ]] && source "/Users/jonathanmorris/.gvm/scripts/gvm"
 

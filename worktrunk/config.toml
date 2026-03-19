@@ -1,2 +1,3 @@
 [post-switch]
-nvim = "~/bin/wt-nvim-update-worktree {{ worktree_path }}"
+# Run inside a tmux popup to allow fzf selection (post-switch is supposed to be non-blocking, so we have to allow blocking)
+nvim = 'tmux display-popup -E "~/bin/wt-nvim-update-worktree {{ worktree_path }}"'
