@@ -2,3 +2,6 @@
 .!*.zshrc
 .DS_Store
 **.log
+
+# AI
+.claude
