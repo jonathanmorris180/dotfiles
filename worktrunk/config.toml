@@ -1,3 +1,8 @@
 [post-switch]
 # Run inside a tmux popup to allow fzf selection (post-switch is supposed to be non-blocking, so we have to allow blocking)
 nvim = 'tmux display-popup -E "~/bin/wt-nvim-update-worktree {{ worktree_path }}"'
+
+[pre-remove]
+# If we are deleting a worktree, send Neovim instances back to the primary worktree
+nvim = 'tmux display-popup -E "~/bin/wt-nvim-update-worktree {{ primary_worktree_path }}"'
+
