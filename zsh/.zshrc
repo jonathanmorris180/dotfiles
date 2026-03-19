@@ -404,29 +404,40 @@ export HELPDIR=/usr/share/zsh/5.9/help
 alias help=run-help # Bash-style help for builtins
 
 nvim() {
-  if [ -n "${TMUX:-}" ]; then
-    local session_id window_index runtime_dir socket_dir socket
-
-    session_id="$(tmux display-message -p '#{session_id}')"
-    window_index="$(tmux display-message -p '#{window_index}')"
-
-    runtime_dir="${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}" # $TMPDIR normally has a value on Mac
-    socket_dir="${runtime_dir%/}/nvim-${USER}"
-    mkdir -p "$socket_dir"  # Use a stable dir, not mktemp, because we want a predictable socket path per tmux window.
-
-    socket="${socket_dir}/${session_id}-${window_index}.sock"
-
-    # If a socket file exists here but Neovim is not answering on it,
-    # it is probably stale (for example after a crash), so remove it.
-    if [ -S "$socket" ] && ! command nvim --server "$socket" --remote-expr '1' >/dev/null 2>&1; then
-      rm -f "$socket"
-    fi
-
-    command nvim --listen "$socket" "$@"
+  if [ -z "${TMUX:-}" ]; then
+    command nvim "$@"
     return
   fi
 
-  command nvim "$@"
+  local session_id window_id runtime_dir socket_dir socket
+
+  session_id="$(tmux display-message -p '#{session_id}' 2>/dev/null || true)"
+  window_id="$(tmux display-message -p '#{window_id}' 2>/dev/null || true)"
+
+  if [ -z "$session_id" ] || [ -z "$window_id" ]; then
+    command nvim "$@"
+    return
+  fi
+
+  runtime_dir="${XDG_RUNTIME_DIR:-${TMPDIR:-/tmp}}"
+  socket_dir="${runtime_dir%/}/nvim-${USER}"
+  mkdir -p "$socket_dir" # Use a stable dir, not mktemp, because we want a predictable socket path per tmux window.
+
+  socket="${socket_dir}/${session_id}-${window_id}.sock"
+
+  # If a socket file exists here but Neovim is not answering on it,
+  # it is probably stale (for example after a crash), so remove it.
+  if [ -S "$socket" ] && ! command nvim --server "$socket" --remote-expr '1' >/dev/null 2>&1; then
+    rm -f "$socket"
+  fi
+
+  # If the socket already exists and is live, do not try to reuse it for a second Neovim in the same window
+  if [ -S "$socket" ] && command nvim --server "$socket" --remote-expr '1' >/dev/null 2>&1; then
+    command nvim "$@"
+    return
+  fi
+
+  command nvim --listen "$socket" "$@"
 }
 
 [[ -s "/Users/jonathanmorris/.gvm/scripts/gvm" ]] && source "/Users/jonathanmorris/.gvm/scripts/gvm"

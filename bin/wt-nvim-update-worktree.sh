@@ -70,8 +70,8 @@ else
       --delimiter="$sep" \
       --with-nth=1 \
       --prompt="Update Neovim worktrees (${worktree_display})> " \
-      --header='TAB select • ENTER confirm' \
-      --bind='tab:toggle+down,btab:toggle+up'
+      --header='TAB select • ENTER confirm • CTRL-A select all' \
+      --bind='tab:toggle+down,btab:toggle+up,ctrl-a:select-all'
   )"
   [ -n "$selected" ] || exit 0
 fi
