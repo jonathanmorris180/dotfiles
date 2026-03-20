@@ -297,7 +297,7 @@ alias wco='wt switch'
 alias wcof='worktrunk_switch_fzf'
 alias wcoc='worktrunk_checkout_clone'
 alias wr='wt remove'
-alias wm='wt merge' # Note that this merges the current branch into the target, not the target into the current like `git merge`
+alias wm='wt merge --no-squash' # Note that this merges the current branch into the target, not the target into the current like `git merge`
 
 alias glp='git log --pretty=format:"%C(yellow)%h %C(blue)%ad %C(red)%d %C(reset)%s %C(green)[%an]" --decorate --date=format-local:"%Y-%m-%d %H:%M:%S"'
 alias gs='git status'
