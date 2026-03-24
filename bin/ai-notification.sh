@@ -12,6 +12,12 @@ log() {
   printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*" >> "$LOG_FILE" # $* = all positional args
 }
 
+is_terminal_focused() {
+  local frontmost
+  frontmost=$(osascript -e 'tell application "System Events" to get name of first application process whose frontmost is true' 2>/dev/null) || return 1
+  [[ "$frontmost" == "wezterm-gui" ]]
+}
+
 # ---------- Mode 2: Popup UI (self-invoked inside tmux display-popup -E - see below) ----
 if [ "${1:-}" = "--popup" ]; then
   shift # Move args to the left
@@ -19,7 +25,7 @@ if [ "${1:-}" = "--popup" ]; then
 
   log "popup: SESSION=$SESSION WINDOW=$WINDOW WINDOW_NAME=$WINDOW_NAME ACTIVE_CLIENT=$ACTIVE_CLIENT"
 
-  CHOICE=$(printf 'Yes\nNo' | fzf --prompt="Return to ${SESSION}:${WINDOW}? " --no-info --reverse) || true
+  CHOICE=$(printf 'Yes\nNo' | fzf --prompt="AI agent needs attention. Return to ${SESSION}:${WINDOW}? " --no-info --reverse) || true
   log "popup: user chose '${CHOICE:-}'"
 
   if [ "${CHOICE:-}" = "Yes" ]; then
@@ -96,4 +102,10 @@ log "hook: launching popup: tmux display-popup -c '$ACTIVE_CLIENT' -w 60 -h 10 -
 
 echo $! > "$LOCK_FILE" # Writes the lock file to be deleted when the subprocess above exits
 log "hook: background pid=$!, lock written"
+
+if ! is_terminal_focused; then
+  log "hook: terminal not focused, sending macOS alert"
+  osascript -e "display alert \"AI Agent\" message \"${AI_SESSION}:${AI_WINDOW} needs attention\"" 2>/dev/null || true
+fi
+
 exit 0
