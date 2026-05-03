@@ -4,6 +4,9 @@ source_if_exists () {
     fi
 }
 
+# Anthropic default model
+export ANTHROPIC_MODEL="claude-opus-4-6"
+
 # Stores DoorDash secrets
 source_if_exists $HOME/.bash_profile
 
