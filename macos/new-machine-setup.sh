@@ -363,7 +363,7 @@ formulae=(
   go
   grpcurl
   neovim
-  nvm
+  fnm
   minikube
   basictex
   tree
@@ -425,7 +425,7 @@ echo "########################################################################"
 echo "Node.js"
 echo "########################################################################"
 
-nvm install 24.11.1 # Needed for latest versions of the SF CLI
+fnm install 24.11.1 # Needed for latest versions of the SF CLI
 
 echo
 echo "########################################################################"
