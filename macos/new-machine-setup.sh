@@ -380,6 +380,7 @@ formulae=(
   ripgrep
   tldr
   tmux
+  ollama 
   tree-sitter-cli
   zsh-autosuggestions
   zsh-syntax-highlighting
