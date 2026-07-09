@@ -241,6 +241,13 @@ function worktrunk_checkout_clone() {
   wt switch --create "$branch" --base=@
 }
 
+function git_checkout_clone() {
+  local current="$(git rev-parse --abbrev-ref HEAD)"
+  branch="${current}-clone"
+  vared -p "New branch name (creating from $current): " branch # Uses zsh editor, which has its own vi mode (see `man zshzle`)
+  git checkout -b "$branch"
+}
+
 function git_log_with_diff() {
   echo -n "Single day? (Y/n - defaults to y): "
   read -k 1 single
@@ -307,12 +314,14 @@ alias gs='git status'
 alias gca='git commit --amend --no-edit'
 alias gcm='git commit -m'
 alias gcof='checkout_fzf'
+alias gcoc='git_checkout_clone'
 alias gmf='merge_fzf'
 alias pwb='git rev-parse --abbrev-ref HEAD'
 alias gld='git_log_with_diff'
 alias glf='git_log_file'
 alias ghb='github_browse_file'
 
+# Allows you to select from the most recent unique Git checkout targets from checkout history
 # Instead of an alias, use a function when args are needed
 gcoh() {
   local limit=${1:-10}  # default to 10 if no argument
