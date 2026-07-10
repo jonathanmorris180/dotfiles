@@ -372,6 +372,7 @@ formulae=(
   pnpm
   redis
   stripe/stripe-cli/stripe
+  stylua
   powerlevel10k
   grpcurl
   prettier
