@@ -373,6 +373,7 @@ formulae=(
   redis
   stripe/stripe-cli/stripe
   stylua
+  jpegoptim
   powerlevel10k
   grpcurl
   prettier
