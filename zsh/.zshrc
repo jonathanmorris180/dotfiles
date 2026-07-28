@@ -4,11 +4,17 @@ source_if_exists () {
     fi
 }
 
+BREW_PREFIX="$(brew --prefix)"
+
 # Anthropic default model
 export ANTHROPIC_MODEL="claude-opus-4-6"
 
 # Stores DoorDash secrets
 source_if_exists $HOME/.bash_profile
+
+# This needs to be before p10k-instant-prompt or everything crashes (disabling for now as it breaks tmux plugins)
+# Iris Autocomplete 
+# eval "$(iris init zsh)" 
 
 source_if_exists $HOME/.env.sh # Adds environment variables like DOTFILES generated from install.sh
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -16,89 +22,34 @@ source_if_exists $HOME/.env.sh # Adds environment variables like DOTFILES genera
 # confirmations, etc.) must go above this block; everything else may go below.
 source_if_exists "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-source_if_exists "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
-source_if_exists "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
+source_if_exists "$BREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc"
+source_if_exists "$BREW_PREFIX/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="$HOME/.oh-my-zsh/custom" # default
 
 export PYENV_ROOT="$HOME/.pyenv"
-[[ ":$PATH:" =~ ":$PYENV_ROOT/bin:" ]] || [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-# initialize pyenv each time we open a new terminal
-if command -v pyenv &> /dev/null
-then
-    eval "$(pyenv init -)"
-fi
+[[ -d "$PYENV_ROOT/bin" ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+[[ -d "$PYENV_ROOT/shims" ]] && export PATH="$PYENV_ROOT/shims:$PATH"
+
+pyenv() {
+  unfunction pyenv
+  eval "$(command pyenv init -)"
+  pyenv "$@"
+}
 
 export MANPAGER="NVIM_DISABLE_AUTOSESSION=1 nvim +Man!"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 if [ -d "$ZSH_CUSTOM/themes/powerlevel10k" ]; then
   ZSH_THEME="powerlevel10k/powerlevel10k" # if installed manually
 fi
-source_if_exists $(brew --prefix)/share/powerlevel10k/powerlevel10k.zsh-theme # installed with brew
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
-
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
+source_if_exists $BREW_PREFIX/share/powerlevel10k/powerlevel10k.zsh-theme # installed with brew
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
 # DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load?
 # Standard plugins can be found in $ZSH/plugins/
@@ -118,16 +69,24 @@ plugins=(
 if [ -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ]; then
     plugins+=(zsh-autosuggestions) # For manual installation
 fi
-source_if_exists $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh # brew installation
+source_if_exists $BREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh # brew installation
 
+# Ensure Homebrew completions are in fpath before compinit
+[[ -d "$BREW_PREFIX/share/zsh/site-functions" ]] && FPATH="$BREW_PREFIX/share/zsh/site-functions:${FPATH}"
+
+# One compinit, once per day. The glob qualifier (#qN.mh+24) matches the
+# dump file only if it is older than 24 hours. Fresh dump -> compinit -C
+# (trust the cache, skip fpath scan + security audit). Stale/missing -> full compinit.
+autoload -Uz compinit
+if [[ -n ${HOME}/.zcompdump(#qN.mh+24) ]]; then
+  compinit -i
+else
+  compinit -C
+fi
+
+skip_global_compinit=1
+zstyle ':omz:update' mode disabled # run `omz update` to update manually
 source_if_exists $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
 
 # Remote sessions - if someone connects to this machine (whatever machine hosts this file) via SSH then SSH_CONNECTION will be set automatically
 if [[ -n $SSH_CONNECTION ]]; then
@@ -136,7 +95,7 @@ else
   export EDITOR='nvim'
 fi
 
-source_if_exists $(brew --prefix)/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+source_if_exists $BREW_PREFIX/opt/zsh-vi-mode/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 source_if_exists ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-vi-man/zsh-vi-man.plugin.zsh # https://github.com/TunaCuma/zsh-vi-man
 
 # see issue: https://github.com/jeffreytse/zsh-vi-mode/issues/4
@@ -155,9 +114,6 @@ ZVM_LINE_INIT_MODE=$ZVM_MODE_INSERT
 
 autoload -Uz edit-command-line
 bindkey -M vicmd "^v" edit-command-line # use Neovim for editing the current line
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -338,7 +294,7 @@ alias sdkls='ls ~/.sdkman/candidates/* | grep -v "current"'
 # List all the tldr options
 alias tldrf='tldr --list | fzf --preview "tldr {1} --color=always" --preview-window=right,70% | xargs tldr'
 
-source_if_exists $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source_if_exists $BREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # fnm
 eval "$(fnm env --use-on-cd --shell zsh)"
@@ -377,8 +333,6 @@ install_xterm_kitty_terminfo() {
     rm "$tempfile"
   fi
 }
-install_xterm_kitty_terminfo
-
 install_wezterm_terminfo() {
   # Attempt to get terminfo for xterm-kitty
   if ! infocmp wezterm &>/dev/null; then
@@ -401,10 +355,16 @@ install_wezterm_terminfo() {
     rm "$tempfile"
   fi
 }
-install_wezterm_terminfo
+# Only check terminfo on first run; delete the flag file to re-trigger
+if [[ ! -f "$HOME/.cache/zsh/.terminfo-installed" ]]; then
+  install_xterm_kitty_terminfo
+  install_wezterm_terminfo
+  mkdir -p "$HOME/.cache/zsh"
+  touch "$HOME/.cache/zsh/.terminfo-installed"
+fi
 
 # To support image.nvim
-export DYLD_FALLBACK_LIBRARY_PATH="$(brew --prefix)/lib:$DYLD_FALLBACK_LIBRARY_PATH"
+export DYLD_FALLBACK_LIBRARY_PATH="$BREW_PREFIX/lib:$DYLD_FALLBACK_LIBRARY_PATH"
 
 # To get to zsh help pages
 unalias run-help 2>/dev/null
@@ -449,11 +409,30 @@ nvim() {
   command nvim --listen "$socket" "$@"
 }
 
-[[ -s "/Users/jonathanmorris/.gvm/scripts/gvm" ]] && source "/Users/jonathanmorris/.gvm/scripts/gvm"
+# Set up Go PATH from GVM's default environment (lightweight — just env vars)
+[[ -s "$HOME/.gvm/environments/default" ]] && source "$HOME/.gvm/environments/default"
+
+# Lazy-load full GVM on first use
+gvm() {
+  unfunction gvm
+  source "$HOME/.gvm/scripts/gvm"
+  gvm "$@"
+}
 
 # Added by worktrunk (https://github.com/max-sixty/worktrunk) with `wt config shell install`
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source_if_exists "$HOME/.sdkman/bin/sdkman-init.sh"
+if [[ -d "$SDKMAN_DIR" ]]; then
+  # Add installed candidate bins to PATH (lightweight glob)
+  for dir in "$SDKMAN_DIR"/candidates/*/current/bin(N); do
+    [[ ":$PATH:" != *":$dir:"* ]] && export PATH="$dir:$PATH"
+  done
+  # Lazy-load the full SDK on first `sdk` call
+  sdk() {
+    unfunction sdk
+    source "$SDKMAN_DIR/bin/sdkman-init.sh"
+    sdk "$@"
+  }
+fi
+
