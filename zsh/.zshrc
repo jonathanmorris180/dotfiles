@@ -276,6 +276,7 @@ alias pwb='git rev-parse --abbrev-ref HEAD'
 alias gld='git_log_with_diff'
 alias glf='git_log_file'
 alias ghb='github_browse_file'
+alias ghd='gh dash'
 
 # Allows you to select from the most recent unique Git checkout targets from checkout history
 # Instead of an alias, use a function when args are needed

@@ -379,6 +379,7 @@ formulae=(
   prettier
   k9s
   pyenv
+  agavra/tap/tuicr
   ripgrep
   tldr
   tmux
