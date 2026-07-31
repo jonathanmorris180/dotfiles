@@ -8,6 +8,7 @@ BREW_PREFIX="$(brew --prefix)"
 
 # Anthropic default model
 export ANTHROPIC_MODEL="claude-opus-4-6"
+alias claude='claude --effort high' # default to high effort
 
 # Stores DoorDash secrets
 source_if_exists $HOME/.bash_profile
