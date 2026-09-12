@@ -79,7 +79,7 @@ nmap <leader>tt <Action>(ActivateTerminalToolWindow)<CR>
 " Block comment
 vmap gc <Action>(CommentByBlockComment)<CR>
 
-" Block comment
+" Reveal in explorer
 nmap <leader>re <Action>(SelectInProjectView)<CR>
 
 nmap <leader>j :nohl<CR>
