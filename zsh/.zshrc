@@ -7,8 +7,10 @@ source_if_exists () {
 BREW_PREFIX="$(brew --prefix)"
 
 # Anthropic default model
-export ANTHROPIC_MODEL="claude-opus-4-6"
-alias claude='claude --effort high' # default to high effort
+export ANTHROPIC_MODEL="claude-opus-5-5"
+alias cc='claude --effort high --permission-mode auto' # default to high effort
+# Codex alias
+alias cx='codex'
 
 # Stores DoorDash secrets
 source_if_exists $HOME/.bash_profile
