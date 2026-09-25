@@ -34,9 +34,7 @@
     "clamshell_microphone": null,
     "clipboard_handling": "dont_modify",
     "custom_filler_words": null,
-    "custom_words": [
-      "Claude"
-    ],
+    "custom_words": ["Claude", "DoorDash", "Forcecode", "pedregal"],
     "debug_mode": false,
     "experimental_enabled": false,
     "external_script_path": null,

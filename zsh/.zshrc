@@ -8,6 +8,7 @@ BREW_PREFIX="$(brew --prefix)"
 
 # Anthropic default model
 export ANTHROPIC_MODEL="claude-opus-5-5"
+export CLAUDE_CODE_DISABLE_AUTO_MEMORY=1
 alias cc='claude --effort high --permission-mode auto' # default to high effort
 # Codex alias
 alias cx='codex'
