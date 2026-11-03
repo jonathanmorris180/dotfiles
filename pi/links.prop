@@ -1,1 +1,2 @@
-$DOTFILES/pi=$HOME/.pi
+$DOTFILES/pi/settings.json=$HOME/.pi/settings.json
+$DOTFILES/pi/trust.json=$HOME/.pi/trust.json
