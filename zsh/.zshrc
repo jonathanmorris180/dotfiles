@@ -442,9 +442,8 @@ if [[ -d "$SDKMAN_DIR" ]]; then
 fi
 
 
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/jonathanmorris/.lmstudio/bin"
-# End of LM Studio CLI section
+[[ ":$PATH:" =~ ":$HOME/Users/jonathanmorris/.lmstudio/bin:" ]] || export PATH="$HOME/.lmstudio/bin:$PATH" # LM Studio `lms`
+[[ ":$PATH:" =~ ":$HOME/.omlx/bin:" ]] || export PATH="$HOME/.omlx/bin:$PATH"
 
 if command -v direnv >/dev/null 2>&1; then eval "$(command direnv hook zsh)"; fi
 export DIRENV_LOG_FORMAT="" # To silence the direnv verbose logging
