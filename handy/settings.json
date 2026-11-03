@@ -31,16 +31,23 @@
         "name": "Transcribe with Post-Processing"
       }
     },
+    "chinese_script": "as_transcribed",
     "clamshell_microphone": null,
     "clipboard_handling": "dont_modify",
     "custom_filler_words": null,
-    "custom_words": ["Claude", "DoorDash", "Forcecode", "pedregal"],
+    "custom_words": [
+      "Claude",
+      "DoorDash",
+      "Forcecode",
+      "pedregal"
+    ],
     "debug_mode": false,
     "experimental_enabled": false,
     "external_script_path": null,
     "extra_recording_buffer_ms": 0,
     "filler_word_removal_enabled": true,
     "history_limit": 5,
+    "hold_threshold_ms": 300,
     "keyboard_implementation": "handy_keys",
     "lazy_stream_close": false,
     "log_level": "debug",
@@ -159,7 +166,6 @@
       }
     ],
     "post_process_selected_prompt_id": null,
-    "push_to_talk": true,
     "recording_retention_period": "preserve_limit",
     "reliable_paste": false,
     "selected_channel": null,
@@ -168,6 +174,7 @@
     "selected_model": "handy-computer/parakeet-unified-en-0.6b-gguf/parakeet-unified-en-0.6b-Q8_0.gguf",
     "selected_output_device": null,
     "settings_schema_version": 2,
+    "shortcut_activation": "push_to_talk",
     "show_tray_icon": true,
     "show_whats_new_on_update": true,
     "sound_theme": "marimba",
@@ -178,6 +185,7 @@
     "translate_to_english": false,
     "typing_tool": "auto",
     "update_checks_enabled": true,
+    "vad_backend": "silero",
     "vad_enabled": true,
     "whats_new_last_seen_version": "0.9.0",
     "word_correction_threshold": 0.18

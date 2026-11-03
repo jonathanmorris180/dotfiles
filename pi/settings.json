@@ -1,0 +1,7 @@
+{
+  "lastChangelogVersion": "0.84.1",
+  "theme": "dark",
+  "defaultProvider": "oMLX",
+  "defaultModel": "Qwen3.8-27B-4bit",
+  "defaultThinkingLevel": "medium"
+}
