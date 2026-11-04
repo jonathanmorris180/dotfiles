@@ -373,6 +373,7 @@ formulae=(
   redis
   stripe/stripe-cli/stripe
   stylua
+  uv # Python package manager written in Rust
   jpegoptim
   powerlevel10k
   grpcurl
