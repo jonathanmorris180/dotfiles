@@ -483,6 +483,7 @@ lmcp() {
 
   export GOOGLE_OAUTH_CLIENT_ID="$client_id"
   export GOOGLE_OAUTH_CLIENT_SECRET="$client_secret"
-  echo "GOOGLE_OAUTH_CLIENT_ID and GOOGLE_OAUTH_CLIENT_SECRET exported successfully."
+  export USER_GOOGLE_EMAIL="$email"
+  echo "GOOGLE_OAUTH_CLIENT_ID, GOOGLE_OAUTH_CLIENT_SECRET, and USER_GOOGLE_EMAIL exported successfully."
 }
 

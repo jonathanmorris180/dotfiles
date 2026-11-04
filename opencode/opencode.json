@@ -7,6 +7,10 @@
       "trello": {
         "type": "remote",
         "url": "https://mcp.trello.com/v1"
+      },
+      "google-workspace": {
+        "type": "local",
+        "command": ["uvx", "workspace-mcp", "--tool-tier", "core"]
       }
     }
   }
