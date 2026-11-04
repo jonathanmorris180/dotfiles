@@ -448,3 +448,41 @@ fi
 if command -v direnv >/dev/null 2>&1; then eval "$(command direnv hook zsh)"; fi
 export DIRENV_LOG_FORMAT="" # To silence the direnv verbose logging
 
+# Load Google OAuth credentials from LastPass for Google Workspace MCP (lmcp = load MCP)
+lmcp() {
+  if [[ -n "$GOOGLE_OAUTH_CLIENT_ID" && -n "$GOOGLE_OAUTH_CLIENT_SECRET" ]]; then
+    echo "GOOGLE_OAUTH_CLIENT_ID and GOOGLE_OAUTH_CLIENT_SECRET are already set."
+    return 0
+  fi
+
+  if [[ -z "$1" ]]; then
+    echo "Usage: load_google_oauth_creds <email>"
+    return 1
+  fi
+
+  if ! command -v lpass >/dev/null 2>&1; then
+    echo "Error: lpass (LastPass CLI) is not installed or not in PATH."
+    return 1
+  fi
+
+  local email="$1"
+  local output
+  output="$(lpass show "Google Workspace MCP OAuth Creds $email" --notes)" || {
+    echo "Error: Failed to retrieve credentials from LastPass."
+    return 1
+  }
+
+  local client_secret client_id
+  client_secret="$(echo "$output" | grep '^Client Secret:' | sed 's/^Client Secret: //')"
+  client_id="$(echo "$output" | grep '^Client ID:' | sed 's/^Client ID: //')"
+
+  if [[ -z "$client_secret" || -z "$client_id" ]]; then
+    echo "Error: Could not parse Client ID or Client Secret from LastPass output."
+    return 1
+  fi
+
+  export GOOGLE_OAUTH_CLIENT_ID="$client_id"
+  export GOOGLE_OAUTH_CLIENT_SECRET="$client_secret"
+  echo "GOOGLE_OAUTH_CLIENT_ID and GOOGLE_OAUTH_CLIENT_SECRET exported successfully."
+}
+
