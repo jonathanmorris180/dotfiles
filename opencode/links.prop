@@ -1,1 +1,2 @@
-$DOTFILES/opencode=$HOME/.opencode
+$DOTFILES/opencode/opencode.json=$HOME/.config/opencode/opencode.json
+$DOTFILES/opencode/tui.json=$HOME/.config/opencode/tui.json
