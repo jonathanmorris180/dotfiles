@@ -398,7 +398,7 @@ casks=(
   visual-studio-code
   nikitabobko/tap/aerospace
   google-chrome
-  google-cloud-sdk # gcloud CLI
+  gcloud-cli
   cursor
   dbeaver-community
   docker-desktop
