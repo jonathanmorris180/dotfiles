@@ -12,6 +12,7 @@ export CLAUDE_CODE_DISABLE_AUTO_MEMORY=1
 alias cc='claude --effort high --permission-mode auto' # default to high effort
 # Codex alias
 alias cx='codex'
+alias oc='opencode'
 
 # Stores DoorDash secrets
 source_if_exists $HOME/.bash_profile
