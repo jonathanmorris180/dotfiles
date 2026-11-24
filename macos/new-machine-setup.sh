@@ -398,6 +398,7 @@ casks=(
   visual-studio-code
   nikitabobko/tap/aerospace
   google-chrome
+  skim # PDF reader for VimTeX
   gcloud-cli
   cursor
   dbeaver-community
