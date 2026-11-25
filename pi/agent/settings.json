@@ -12,7 +12,8 @@
     "npm:pi-extmgr",
     "npm:@99percentpeople/pi-thinking-fold",
     "npm:@narumitw/pi-caffeinate",
-    "npm:@narumitw/pi-btw"
+    "npm:@narumitw/pi-btw",
+    "npm:@narumitw/pi-plan-mode"
   ],
   "theme": "catppuccin-mocha",
   "observational-memory": {
@@ -34,6 +35,7 @@
     "{\"source\":\"npm:@narumitw/pi-usage\",\"scope\":\"user\"}": "0.70.0",
     "{\"source\":\"npm:pi-extmgr\",\"scope\":\"user\"}": "0.4.2",
     "{\"source\":\"npm:@narumitw/pi-caffeinate\",\"scope\":\"user\"}": "0.49.16",
-    "{\"source\":\"npm:@narumitw/pi-btw\",\"scope\":\"user\"}": "0.63.9"
+    "{\"source\":\"npm:@narumitw/pi-btw\",\"scope\":\"user\"}": "0.63.9",
+    "{\"source\":\"npm:@narumitw/pi-plan-mode\",\"scope\":\"user\"}": "0.62.0"
   }
 }
