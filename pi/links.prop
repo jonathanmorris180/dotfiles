@@ -1,4 +1,5 @@
 $DOTFILES/pi/agent/extensions=$HOME/.pi/agent/extensions
+$DOTFILES/pi/agent/snippets=$HOME/.pi/agent/snippets
 $DOTFILES/pi/agent/settings.json=$HOME/.pi/agent/settings.json
 $DOTFILES/pi/agent/pi-pretty.json=$HOME/.pi/agent/pi-pretty.json
 $DOTFILES/pi/agent/themes=$HOME/.pi/agent/themes
