@@ -1,0 +1,9 @@
+{
+  "fff": {
+    "enableHomeScanning": false,
+    "enableRootScanning": false
+  },
+  "workingIndicator": {
+    "enabled": false
+  }
+}

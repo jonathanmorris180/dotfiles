@@ -1,2 +1,6 @@
 $DOTFILES/pi/agent/settings.json=$HOME/.pi/agent/settings.json
+$DOTFILES/pi/agent/pi-pretty.json=$HOME/.pi/agent/pi-pretty.json
+$DOTFILES/pi/agent/themes=$HOME/.pi/agent/themes
+$DOTFILES/pi/agent/cloak.json=$HOME/.pi/agent/cloak.json
 $DOTFILES/pi/agent/trust.json=$HOME/.pi/agent/trust.json
+$DOTFILES/pi/agent/keybindings.json=$HOME/.pi/agent/keybindings.json

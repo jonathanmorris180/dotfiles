@@ -1,0 +1,10 @@
+{
+  "$schema": "https://pi.dev/schemas/keybindings.schema.json",
+  "tui.editor.pageUp": ["pageUp", "ctrl+pageUp", "ctrl+u"],
+  "tui.editor.pageDown": ["pageDown", "ctrl+pageDown", "ctrl+d"],
+  "tui.editor.deleteToLineStart": [],
+  "tui.editor.deleteCharForward": "delete",
+  "tui.altScreen.pageUp": ["pageUp", "ctrl+u"],
+  "tui.altScreen.pageDown": ["pageDown", "ctrl+d"],
+  "app.exit": []
+}

@@ -1,0 +1,51 @@
+{
+  "enabled": true,
+  "cloakCharacter": "*",
+  "cloakLength": null,
+  "tryAllPatterns": true,
+  "patterns": [
+    {
+      "filePattern": ["**/.env", "**/.env.*"],
+      "cloakPattern": {
+        "pattern": "^([A-Z0-9_]+)=(.+)$",
+        "replace": "$1="
+      }
+    },
+    {
+      "filePattern": "**/*.opencode.json",
+      "cloakPattern": "(\\\"apiKey\\\"\\s*:\\s*\\\")[^\\\"]+",
+      "replace": "$1"
+    },
+    {
+      "filePattern": "**/*.pem",
+      "cloakPattern": ".+"
+    },
+    {
+      "filePattern": "**/credentials.json",
+      "cloakPattern": [
+        {
+          "pattern": "\"(private_key|client_secret)\":\\s*\"([^\"]+)\"",
+          "replace": "\"$1\": \""
+        },
+        {
+          "pattern": "-----BEGIN [A-Z ]+-----.*?-----END [A-Z ]+-----",
+          "flags": "s"
+        }
+      ],
+      "replace": ""
+    },
+    {
+      "filePattern": [
+        "~/.pi/agent/auth.json",
+        "**/.pi/agent/auth.json",
+        "**/auth.json"
+      ],
+      "cloakPattern": [
+        {
+          "pattern": "(\\\"(?:token|access|refresh|accessToken|refreshToken|apiKey|secret|password|clientSecret|idToken|sessionToken|authorization)\\\"\\s*:\\s*\\\")[^\\\"]+",
+          "replace": "$1"
+        }
+      ]
+    }
+  ]
+}

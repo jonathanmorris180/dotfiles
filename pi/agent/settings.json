@@ -1,7 +1,39 @@
 {
   "$schema": "https://pi.dev/schemas/settings.schema.json",
   "lastChangelogVersion": "1.5.0",
-  "packages": ["npm:pi-context-view"],
-  "theme": "dark",
-  "defaultThinkingLevel": "high"
+  "packages": [
+    "npm:pi-context-view",
+    "npm:@heyhuynhgiabuu/pi-pretty",
+    "npm:@nicknisi/pi-cloak",
+    "npm:@narumitw/pi-tool",
+    "npm:pi-observational-memory",
+    "npm:@narumitw/pi-statusline",
+    "npm:@narumitw/pi-usage",
+    "npm:pi-extmgr",
+    "npm:@99percentpeople/pi-thinking-fold",
+    "npm:@narumitw/pi-caffeinate",
+    "npm:@narumitw/pi-btw"
+  ],
+  "theme": "catppuccin-mocha",
+  "observational-memory": {
+    "observeAfterTokens": 30000,
+    "reflectAfterTokens": 60000,
+    "compactAfterTokensMode": "ratio",
+    "compactAfterTokensRatio": 0.5
+  },
+  "defaultThinkingLevel": "high",
+  "defaultModel": "glm-5.3",
+  "defaultProvider": "opencode-go",
+  "extensionChangelogVersions": {
+    "{\"source\":\"npm:pi-context-view\",\"scope\":\"user\"}": "0.8.4",
+    "{\"source\":\"npm:@heyhuynhgiabuu/pi-pretty\",\"scope\":\"user\"}": "0.10.2",
+    "{\"source\":\"npm:@nicknisi/pi-cloak\",\"scope\":\"user\"}": "0.2.2",
+    "{\"source\":\"npm:@narumitw/pi-tool\",\"scope\":\"user\"}": "0.4.4",
+    "{\"source\":\"npm:pi-web-access\",\"scope\":\"user\"}": "0.48.0",
+    "{\"source\":\"npm:@narumitw/pi-statusline\",\"scope\":\"user\"}": "0.51.2",
+    "{\"source\":\"npm:@narumitw/pi-usage\",\"scope\":\"user\"}": "0.70.0",
+    "{\"source\":\"npm:pi-extmgr\",\"scope\":\"user\"}": "0.4.2",
+    "{\"source\":\"npm:@narumitw/pi-caffeinate\",\"scope\":\"user\"}": "0.49.16",
+    "{\"source\":\"npm:@narumitw/pi-btw\",\"scope\":\"user\"}": "0.63.9"
+  }
 }
