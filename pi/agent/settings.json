@@ -13,7 +13,8 @@
     "npm:@99percentpeople/pi-thinking-fold",
     "npm:@narumitw/pi-caffeinate",
     "npm:@narumitw/pi-btw",
-    "npm:@narumitw/pi-plan-mode"
+    "npm:@narumitw/pi-plan-mode",
+    "npm:pi-toggle-skills"
   ],
   "theme": "catppuccin-mocha",
   "observational-memory": {
@@ -23,7 +24,7 @@
     "compactAfterTokensRatio": 0.5
   },
   "defaultThinkingLevel": "high",
-  "defaultModel": "glm-5.3",
+  "defaultModel": "glm-5.3-flash",
   "defaultProvider": "opencode-go",
   "extensionChangelogVersions": {
     "{\"source\":\"npm:pi-context-view\",\"scope\":\"user\"}": "0.8.4",
